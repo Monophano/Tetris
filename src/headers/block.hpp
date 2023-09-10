@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <vector>
 
-const enum eBlock
+enum eBlock
 {
     bkI = 1,
     bkO = 2,
@@ -21,8 +21,6 @@ enum eBlockMDir
     ebkmdLeft = false,
     ebkmdRight = true
 };
-
-std::vector<std::vector<int>> oldBlockPos;
 
 class Block
 {
@@ -82,6 +80,5 @@ class Block
         int slide();
         void rot();
         bool haveReechGround();
-        bool collideWithBlock();
         eBlock data(int pos, int height);
 };

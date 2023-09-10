@@ -7,6 +7,7 @@ Block::Block()
 
     switch (TypeBlock)
     {
+        case bkVide : break; 
         case bkI :  bk_size = 4;
                     for (int i = 0; i < block_size(); i++)
                     for (int j = 0; j < block_size(); j++)                
@@ -78,26 +79,9 @@ bool Block::haveReechGround()
 {
     if (pos[0] >= 20 - bk_size)
     {
-        //oldBlockPos.assign(pos[1]);
-        //oldBlockPos[1].pushback(pos[0]);
         return true;
     }
     return false;
-}
-
-bool Block::collideWithBlock()
-{
-    /*
-    for (int i = 0; i < oldBlockPos.size(); i++)
-    {
-        for (int j = 0; j < oldBlockPos[i].size(); j++)
-        {
-            if (oldBlockPos == pos[1] && oldBlockPos[j] == pos[0] + 1)
-                return true;
-        }
-    }
-    return false;
-    */
 }
 
 int Block::move(eBlockMDir dir)

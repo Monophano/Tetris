@@ -55,20 +55,17 @@ void Game::pollEvent(sf::RenderWindow &window, sf::Event &event)
                 if (event.key.code == sf::Keyboard::Escape)
                     window.close();
 
-                if (&block != nullptr)
-                {
-                    if (event.key.code == sf::Keyboard::Up)
-                        block->rot();
+                if (event.key.code == sf::Keyboard::Up)
+                    block->rot();
 
-                    if (event.key.code == sf::Keyboard::Down)
-                        drop = true;
+                if (event.key.code == sf::Keyboard::Down)
+                    drop = true;
 
-                    if (event.key.code == sf::Keyboard::Right)
-                        block->move(ebkmdRight);
+                if (event.key.code == sf::Keyboard::Right)
+                    block->move(ebkmdRight);
 
-                    if (event.key.code == sf::Keyboard::Left)
-                        block->move(ebkmdLeft);
-                }
+                if (event.key.code == sf::Keyboard::Left)
+                    block->move(ebkmdLeft);
                 break;
 
             case sf::Event::KeyReleased:
