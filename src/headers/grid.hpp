@@ -12,13 +12,15 @@ class Grid
         void draw(sf::RenderWindow &window);
         void updateGrid(Block block);
         void checkLineFull();
-        void checkEnd();
         eBlock grid[10][20];
 
     private:
+        bool lineFull = false;
         const int cellSize = 30;
         int numLine = 20;
         int numColumn = 10;
+        int gridHeight = 20;
+        int gridWidth = 10;
         std::vector<sf::Color> colors = {
             sf::Color(142,142,142), // empty color
             sf::Color(0,255,255), // I color

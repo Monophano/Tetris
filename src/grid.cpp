@@ -9,7 +9,7 @@ void Grid::init()
 {
     for (int line = 0; line < numLine; line++)
     for (int column = 0; column < numColumn; column++)
-        grid[column][line] = bkVide;
+        grid[column][line] = (eBlock) 0;
 }
 
 void Grid::draw(sf::RenderWindow &window)
@@ -37,32 +37,33 @@ void Grid::draw(sf::RenderWindow &window)
 
 void Grid::updateGrid(Block block)
 {
-    for (int i = block.block_pos(); i < block.block_pos() + block.block_size(); i++)
+    // remplacement des blocks vide en bkVide
+    // haut
+    for (int i = block.block_pos_y(); i < block.block_pos_y() + block.block_size(); i++)
         if (block.block_height() > 0)
-            grid[i][block.block_height() - 1] = bkVide;
+            grid[i][block.block_height() - 1] = (eBlock) 0;
 
-    for (int i = 0; i < block.block_size(); i++)
-        for (int j = 0; j < block.block_size(); j++)
-            grid[block.block_pos() + i][block.block_height() + j] = block.data(i, j);
+    // droite
+    for (int i = block.block_pos_y(); i < block.block_pos_y() + block.block_size(); i++)
+        if (block.block_width() > 0)
+            grid[i][block.block_width() - 1] = (eBlock) 0;
+
+     // introduction des blocks dans la grille
+     for (int i = 0; i < block.block_size(); i++)
+     for (int j = 0; j < block.block_size(); j++)
+        grid[block.block_pos_y() + i][block.block_height() + j] = block.data(i, j);
 }
 
 void Grid::checkLineFull()
 {
-    // check if a line is full
     for (int i = 19; i > 0; i--)
     {
-        bool Ligne_Full = true;
-        for (int j = 0; j < 10 && !Ligne_Full; j++)
-            Ligne_Full = grid[i][j] != bkVide;
+        for (int j = 0; j < 10 && !lineFull; j++)
+            lineFull = grid[i][j] != 0;
 
-        if (Ligne_Full)
+        if (lineFull)
             for (int k = i - 1; k > 0; k--)
                 for (int j = 0; j < 10; j++)
                     grid[j][k + 1] = grid[j][k];
     }
-}
-
-void Grid::checkEnd()
-{
-
 }

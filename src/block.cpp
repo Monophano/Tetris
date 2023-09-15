@@ -7,7 +7,6 @@ Block::Block()
 
     switch (TypeBlock)
     {
-        case bkVide : break; 
         case bkI :  bk_size = 4;
                     for (int i = 0; i < block_size(); i++)
                     for (int j = 0; j < block_size(); j++)                
@@ -60,7 +59,12 @@ int Block::block_size()
     return bk_size;
 }
 
-int Block::block_pos()
+int Block::block_pos_x()
+{
+    return pos[1];
+}
+
+int Block::block_pos_y()
 {
     return pos[1];
 }
@@ -70,6 +74,11 @@ int Block::block_height()
     return pos[0];
 }
 
+int Block::block_width()
+{
+    return pos[1];
+}
+
 eBlock Block::data(int pos, int height)
 {
     return (eBlock) block[pos][height];
@@ -77,7 +86,7 @@ eBlock Block::data(int pos, int height)
 
 bool Block::haveReechGround()
 {
-    if (pos[0] >= 20 - bk_size)
+    if (pos[0] >= 20 - bk_size + 1)
     {
         return true;
     }

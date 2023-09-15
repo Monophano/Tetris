@@ -12,8 +12,7 @@ enum eBlock
     bkL = 4,
     bkJ = 5,
     bkZ = 6,
-    bkS = 7,
-    bkVide = 0
+    bkS = 7
 };
 
 enum eBlockMDir
@@ -74,8 +73,10 @@ class Block
     public:
         Block();
         int block_size();
-        int block_pos();
+        int block_pos_x();
+        int block_pos_y();
         int block_height();
+        int block_width();
         int move(eBlockMDir dir);
         int slide();
         void rot();
