@@ -66,17 +66,7 @@ int Block::block_pos_x()
 
 int Block::block_pos_y()
 {
-    return pos[1];
-}
-
-int Block::block_height()
-{
     return pos[0];
-}
-
-int Block::block_width()
-{
-    return pos[1];
 }
 
 eBlock Block::data(int pos, int height)

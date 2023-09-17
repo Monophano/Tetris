@@ -12,6 +12,7 @@ class Grid
         void draw(sf::RenderWindow &window);
         void updateGrid(Block block);
         void checkLineFull();
+        int CellSize();
         eBlock grid[10][20];
 
     private:
@@ -31,5 +32,4 @@ class Grid
             sf::Color(255,0,0),   // Z color
             sf::Color(42,255,0)   // S color
         };
-        void init();
 };

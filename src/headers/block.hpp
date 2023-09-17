@@ -67,7 +67,6 @@ class Block
         };
 
         int bk_size = 0;
-        int block[4][4];
         int pos[2];
 
     public:
@@ -75,11 +74,10 @@ class Block
         int block_size();
         int block_pos_x();
         int block_pos_y();
-        int block_height();
-        int block_width();
         int move(eBlockMDir dir);
         int slide();
         void rot();
         bool haveReechGround();
         eBlock data(int pos, int height);
+        int block[4][4];
 };

@@ -2,11 +2,6 @@
 
 Grid::Grid()
 {
-    init();
-}
-
-void Grid::init()
-{
     for (int line = 0; line < numLine; line++)
     for (int column = 0; column < numColumn; column++)
         grid[column][line] = (eBlock) 0;
@@ -15,9 +10,8 @@ void Grid::init()
 void Grid::draw(sf::RenderWindow &window)
 {
     sf::RectangleShape cellule(sf::Vector2f(cellSize - 1, cellSize - 1));
-//    sf::RectangleShape cellule(sf::Vector2<float>(29, 29));
 
-    // dessiner les cellules
+    // dessiner les cellules de la grille
     for (int line = 0; line < numLine; line++)
     {
         for (int column = 0; column < numColumn; column++)
@@ -35,23 +29,20 @@ void Grid::draw(sf::RenderWindow &window)
     }
 }
 
+int Grid::CellSize()
+{
+    return cellSize;
+}
+
 void Grid::updateGrid(Block block)
 {
-    // remplacement des blocks vide en bkVide
-    // haut
-    for (int i = block.block_pos_y(); i < block.block_pos_y() + block.block_size(); i++)
-        if (block.block_height() > 0)
-            grid[i][block.block_height() - 1] = (eBlock) 0;
-
-    // droite
-    for (int i = block.block_pos_y(); i < block.block_pos_y() + block.block_size(); i++)
-        if (block.block_width() > 0)
-            grid[i][block.block_width() - 1] = (eBlock) 0;
-
-     // introduction des blocks dans la grille
-     for (int i = 0; i < block.block_size(); i++)
-     for (int j = 0; j < block.block_size(); j++)
-        grid[block.block_pos_y() + i][block.block_height() + j] = block.data(i, j);
+    // introduction des blocks dans la grille
+    for (int i = 0; i < block.block_size(); i++)
+    for (int j = 0; j < block.block_size(); j++)
+        grid[block.block_pos_x() + i][block.block_pos_y() + j] = block.data(i, j);
+    
+    // check line
+    checkLineFull();
 }
 
 void Grid::checkLineFull()
