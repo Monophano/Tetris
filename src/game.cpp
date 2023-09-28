@@ -1,4 +1,4 @@
-#include "headers/game.hpp"
+﻿#include "headers/game.hpp"
 
 Game::Game()
 {
@@ -39,6 +39,7 @@ void Game::run(sf::RenderWindow &window, sf::Event &event)
 
         pollEvent(window,event);
         display(window);
+        update();
     }
 }
 
@@ -81,24 +82,44 @@ void Game::display(sf::RenderWindow &window)
 {
     window.clear();
 
-    sf::RectangleShape blockShape(sf::Vector2f(grid.CellSize() - 1, grid.CellSize() - 1));
+    grid.draw(window);
+    block->draw(window);
+
+    window.display();
+}
+
+void Game::update()
+{
+    std::cout << "Tableau de block courent: " << std::endl;
     for (int i = 0; i < block->block_size(); i++)
     {
         for (int j = 0; j < block->block_size(); j++)
         {
-            // definition de la couleur des cellules
-            int cellValue = block->block[j][i];
-            blockShape.setFillColor(bkColor[cellValue]);
-
-            // definition de la position
-            blockShape.setPosition(j * grid.CellSize() + 1,i * grid.CellSize() + 1);
-
-            // affichage
-            window.draw(blockShape);
+            std::cout << block->block[j][i] << " ";
         }
+        std::cout << std::endl;
     }
 
-    grid.draw(window);
-
-    window.display();
+    std::cout << std::endl;
+    std::cout << "Pos X et Y -> " << block->pos.x << " " << block->pos.y << std::endl;
 }
+
+/*
+⠀⠀⠀⠀⠀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⡤⢄⡀⠴⠊⠁⠀⠘⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠔⠢⢄⣀⣀⠀
+⠀⠂⠐⠲⡟⣳⠀⠀⠧⠐⠒⠒⠒⠢⠔⠒⠒⠒⠒⠲⢤⠊⠀⠰⠤⠔⠉⠀
+⠀⠀⢠⠃⡅⢈⠀⠀⠀⠀⢀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠀⠀⢱⠀⠀⠀
+⠀⠀⠈⠢⡄⠈⠀⠀⢀⠔⠁⣀⠉⠒⡄⠀⠀⠀⠀⠀⢀⣤⣄⠀⣼⠀⠀⠀
+⠀⠀⠀⡜⠁⠀⠀⠀⠆⠀⠀⢻⣷⣄⠈⠄⠀⠀⠀⢰⠃⠀⣄⠱⠘⣆⠀⠀
+⠀⠀⢸⠁⠀⠀⠀⢸⠀⣷⣀⣸⣿⣿⡄⠸⠀⠀⠀⡎⡀⠀⣿⣧⢇⠸⡄⠀
+⠀⠀⠌⠀⠀⠀⢤⠘⠀⣿⣧⣀⣿⣿⡇⠀⡄⠀⠀⡇⣿⣶⢹⣿⠸⠀⢇⠀
+⠀⢠⠆⠀⡠⠒⠉⠙⠒⠿⣿⣿⣿⡿⠓⢚⡱⠮⠭⠷⣿⣿⣿⣿⡀⠀⠸⠀
+⠀⡎⠀⠀⠀⠀⠀⠀⢀⡀⠈⠙⠁⠀⠀⢇⣠⣅⢂⣄⢰⢈⡟⠛⠷⠂⢇⠀
+⢸⠁⠀⠀⠀⠀⢠⠊⢫⠀⠀⠰⠀⠀⠀⠀⠀⠀⠳⣸⣾⠟⠁⠀⠰⠀⠀⢣
+⣾⠀⠀⠀⠀⠀⡄⠀⠀⢍⠒⢣⠀⠀⠀⠀⠀⠂⠀⣨⠁⠀⡁⠀⢨⠀⣀⠞
+⢹⠀⠀⠀⠀⠀⠘⠄⠀⠀⠀⣟⠷⣤⣀⠈⢀⣠⣴⣿⣷⣤⣀⠴⠋⠉⢇⠀
+⠘⡄⠀⠀⠀⠀⠀⠀⠀⠀⢰⣗⡿⠋⠙⢍⠻⢏⣿⣿⣏⠟⡿⠀⠀⠀⢸⠀
+⠀⠙⢄⡀⠀⠀⠀⠀⣀⣠⢟⠊⢷⠀⠀⠀⠉⠢⠤⠀⠤⠎⡇⠀⠀⠀⣸⠀
+⠀⠀⠀⠉⠉⠛⠛⠋⠉⠁⠀⠈⠙⢄⠀⠀⠀⠀⠛⠁⢀⡜⠀⠀⢀⡴⠃⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠐⠒⠒⠊⠉⠀⠈⠉⠉⠀⠀⠀⠀
+*/ // Rest In Peace

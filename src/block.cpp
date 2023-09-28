@@ -1,6 +1,7 @@
 #include "headers/block.hpp"
+#include "headers/vector2.hpp"
 
-Block::Block()
+Block::Block() : pos(0,0)
 {
     srand((unsigned int)time(0));
     eBlock TypeBlock = (eBlock)((((unsigned int)rand()) + 1) % 7);
@@ -50,23 +51,14 @@ Block::Block()
                     break;
     }
 
-    pos[0] = 0;
-    pos[1] = 5 - (bk_size + 1) / 2;
+    // attribution de la position de spawn en fonction de la taille du block
+    pos.x = 5 - (bk_size + 1) / 2;
+    pos.y = 0;
 }
 
 int Block::block_size()
 {
     return bk_size;
-}
-
-int Block::block_pos_x()
-{
-    return pos[1];
-}
-
-int Block::block_pos_y()
-{
-    return pos[0];
 }
 
 eBlock Block::data(int pos, int height)
@@ -76,7 +68,7 @@ eBlock Block::data(int pos, int height)
 
 bool Block::haveReechGround()
 {
-    if (pos[0] >= 20 - bk_size + 1)
+    if (pos.y >= 20 - bk_size - 1)
     {
         return true;
     }
@@ -89,22 +81,22 @@ int Block::move(eBlockMDir dir)
     {
         // Bouge a gauche
         if (dir == ebkmdLeft)
-            if (pos[1] > 0)
-                pos[1]--;
+            if (pos.x > 0)
+                pos.x--;
 
         // Bouge a droite
         if (dir == ebkmdRight)
-            if (pos[1] < 10 - bk_size)
-                pos[1]++;
+            if (pos.x < 10 - bk_size)
+                pos.x++;
     }
-    return pos[1];
+    return pos.x;
 }
 
 int Block::slide()
 {
     if (!haveReechGround())
-        pos[0]++;
-    return pos[0];
+        pos.y++;
+    return pos.y;
 }
 
 void Block::rot()
@@ -119,5 +111,55 @@ void Block::rot()
         for (int i = 0; i < bk_size; i++)
             for (int j = 0; j < bk_size; j++)
                 block[i][j] = block_tmp[i][j];
+    }
+}
+
+void Block::mergeWithGrid(eBlock grid[10][20])
+{
+    if (haveReechGround())
+    {
+        for (int i = 0; i < bk_size; i++)
+        {
+            for (int j = 0; j < bk_size; j++)
+            {
+                if (block[j][i] != 0)
+                {
+                    Vector2i gPos(0, 0);
+                    gPos.x = pos.x + j;
+                    gPos.y = pos.y + i;
+                    grid[gPos.x][gPos.y] = block[pos.x + j][pos.y + i];
+                }
+            }
+        }
+    }
+}
+
+void Block::draw(sf::RenderWindow &window)
+{
+    sf::RectangleShape blockShape(sf::Vector2f(CellSize - 1, CellSize - 1));
+
+    for (int i = 0; i < bk_size; i++)
+    {
+        for (int j = 0; j < bk_size; j++)
+        {
+            // affichage du block
+            // couleur
+            int currentCellValue = block[j][i];
+            blockShape.setFillColor(bkColor[currentCellValue]);
+
+            if (block[j][i] != 0)
+                currentCellValue = 1;
+            else
+                currentCellValue = 0;
+
+            blockShape.setOutlineThickness(1);
+            blockShape.setOutlineColor(outlineColor[currentCellValue]);
+
+            // position
+            blockShape.setPosition((pos.x + j) * CellSize, (pos.y + i) * CellSize);
+
+            // affichage
+            window.draw(blockShape);
+        }
     }
 }

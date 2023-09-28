@@ -37,9 +37,7 @@ int Grid::CellSize()
 void Grid::updateGrid(Block block)
 {
     // introduction des blocks dans la grille
-    for (int i = 0; i < block.block_size(); i++)
-    for (int j = 0; j < block.block_size(); j++)
-        grid[block.block_pos_x() + i][block.block_pos_y() + j] = block.data(i, j);
+    block.mergeWithGrid(grid);
     
     // check line
     checkLineFull();

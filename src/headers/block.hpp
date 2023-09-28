@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <algorithm>
 #include <vector>
+#include "vector2.hpp"
 
 enum eBlock
 {
@@ -67,17 +68,34 @@ class Block
         };
 
         int bk_size = 0;
-        int pos[2];
+        const int CellSize = 30;
+
+        std::vector<sf::Color> bkColor = {
+            sf::Color::Transparent, // empty color
+            sf::Color(0,255,255), // I color
+            sf::Color(255,251,0), // O color
+            sf::Color(189,0,255), // T color
+            sf::Color(255,162,0), // L color2
+            sf::Color(0,12,255),  // J color
+            sf::Color(255,0,0),   // Z color
+            sf::Color(42,255,0)   // S color
+        };
+
+        sf::Color outlineColor[2] = {
+            sf::Color::Transparent,
+            sf::Color::Black
+        };
 
     public:
         Block();
+        Vector2i pos;
         int block_size();
-        int block_pos_x();
-        int block_pos_y();
         int move(eBlockMDir dir);
         int slide();
         void rot();
         bool haveReechGround();
         eBlock data(int pos, int height);
         int block[4][4];
+        void draw(sf::RenderWindow &window);
+        void mergeWithGrid(eBlock grid);
 };
