@@ -114,26 +114,6 @@ void Block::rot()
     }
 }
 
-void Block::mergeWithGrid(eBlock grid[10][20])
-{
-    if (haveReechGround())
-    {
-        for (int i = 0; i < bk_size; i++)
-        {
-            for (int j = 0; j < bk_size; j++)
-            {
-                if (block[j][i] != 0)
-                {
-                    Vector2i gPos(0, 0);
-                    gPos.x = pos.x + j;
-                    gPos.y = pos.y + i;
-                    grid[gPos.x][gPos.y] = block[pos.x + j][pos.y + i];
-                }
-            }
-        }
-    }
-}
-
 void Block::draw(sf::RenderWindow &window)
 {
     sf::RectangleShape blockShape(sf::Vector2f(CellSize - 1, CellSize - 1));

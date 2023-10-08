@@ -37,7 +37,15 @@ int Grid::CellSize()
 void Grid::updateGrid(Block block)
 {
     // introduction des blocks dans la grille
-    block.mergeWithGrid(grid);
+    sf::RectangleShape cell(sf::Vector2f(cellSize - 1, cellSize - 1));
+
+    for (int i = 0; i < block.block_size(); i++)
+    {
+        for (int j = 0; j < block.block_size(); j++)
+        {
+
+        }
+    }
     
     // check line
     checkLineFull();

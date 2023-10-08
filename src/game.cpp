@@ -14,6 +14,7 @@ void Game::run(sf::RenderWindow &window, sf::Event &event)
 
         timer.start();
 
+        /*
         if (!drop)
         {
             if (timer.verifCount() > fallSpeed)
@@ -30,6 +31,10 @@ void Game::run(sf::RenderWindow &window, sf::Event &event)
                 timer.clear();
             }
         }
+        */
+
+        if (drop)
+            block->slide();
 
         if (block->haveReechGround())
         {

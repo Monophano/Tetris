@@ -97,5 +97,4 @@ class Block
         eBlock data(int pos, int height);
         int block[4][4];
         void draw(sf::RenderWindow &window);
-        void mergeWithGrid(eBlock grid);
 };
