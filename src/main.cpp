@@ -1,14 +1,34 @@
 #include <SFML/Graphics.hpp>
-#include "headers/game.hpp"
 
 int main()
 {
-    Game game;
-    sf::Event event;
-    sf::RenderWindow window(sf::VideoMode(300,600),"Tetris");
-    window.setFramerateLimit(60);
+	sf::RenderWindow window(sf::VideoMode(300,600), "Tetris");
+	sf::Event event;
 
-    game.run(window,event);
+	while (window.isOpen())
+	{
+		while (window.pollEvent(event))
+		{
+			switch (event.type)
+			{
+				case sf::Event::Closed:
+					window.close();
+					break;
 
-    return 0;
+				case sf::Event::KeyPressed:
+					switch (event.key.code)
+					{
+						case sf::Keyboard::Escape:
+							window.close();
+							break;
+					}
+					break;
+			}
+
+			window.clear();
+			window.display();
+		}
+	}
+
+	return 0;
 }

@@ -1,35 +1,26 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <iostream>
 #include <vector>
-#include "block.hpp"
 
 class Grid
 {
-    public:
-        Grid();
-        void draw(sf::RenderWindow &window);
-        void updateGrid(Block block);
-        void checkLineFull();
-        int CellSize();
-        eBlock grid[10][20];
+public:
+	Grid();
+	void draw(sf::RenderWindow &window);
 
-    private:
-        bool lineFull = false;
-        const int cellSize = 30;
-        int numLine = 20;
-        int numColumn = 10;
-        int gridHeight = 20;
-        int gridWidth = 10;
-        std::vector<sf::Color> colors = {
-            sf::Color(142,142,142), // empty color
-            sf::Color(0,255,255), // I color
-            sf::Color(255,251,0), // O color
-            sf::Color(189,0,255), // T color
-            sf::Color(255,162,0), // L color
-            sf::Color(0,12,255),  // J color
-            sf::Color(255,0,0),   // Z color
-            sf::Color(42,255,0)   // S color
-        };
+private:
+	const int LINE = 20;
+	const int COLUMN = 10;
+	int grid1[20][10];
+	std::vector<sf::Color> color = {
+		sf::Color::Transparent,
+		sf::Color::Cyan,
+		sf::Color::Yellow,
+		sf::Color::Magenta,
+		sf::Color::Color(255,165,0),
+		sf::Color::Blue,
+		sf::Color::Green,
+		sf::Color::Red
+	};
 };
