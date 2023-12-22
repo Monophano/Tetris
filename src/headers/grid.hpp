@@ -12,7 +12,7 @@ public:
 private:
 	const int LINE = 20;
 	const int COLUMN = 10;
-	int grid1[20][10];
+	int grid1[22][11];
 	std::vector<sf::Color> color = {
 		sf::Color::Transparent,
 		sf::Color::Cyan,
