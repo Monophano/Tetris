@@ -2,33 +2,26 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(300,600), "Tetris");
-	sf::Event event;
+    sf::RenderWindow window(sf::VideoMode(300,600), "Tetris");
+    sf::Event event;
 
-	while (window.isOpen())
-	{
-		while (window.pollEvent(event))
-		{
-			switch (event.type)
-			{
-				case sf::Event::Closed:
-					window.close();
-					break;
+    window.setFramerateLimit(60);
 
-				case sf::Event::KeyPressed:
-					switch (event.key.code)
-					{
-						case sf::Keyboard::Escape:
-							window.close();
-							break;
-					}
-					break;
-			}
+    while (window.isOpen())
+    {
+        while (window.pollEvent(event))
+        {
+            switch (event.type)
+            {
+                case sf::Event::Closed:
+                    window.close();
+                    break;
+            }
+        }
 
-			window.clear();
-			window.display();
-		}
-	}
+        window.clear();
+        window.display();
+    }
 
-	return 0;
+    return 0;
 }
