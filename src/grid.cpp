@@ -28,7 +28,8 @@ bool Grid::isValideMove(Tetromino &tetromino)
 	{
 		for (int colonne = 0; colonne < COL; colonne++)
 		{
-			printf("coucou les amis");
+			if (tetromino.pos[1] > 20)
+				return false;
 		}
 	}
 	return true;

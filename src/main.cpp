@@ -35,6 +35,8 @@ int main()
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 						if (grid.isValideMove(tetromino))
 							tetromino.Move(false);
+
+					if (sf::Keyboard::isKeyPressed())
 					break;
 			}
 		}
@@ -43,7 +45,7 @@ int main()
 
 		// Update section
 		sf::Time time = clock.getElapsedTime();
-		if (time.asMilliseconds() > limit)
+		if (grid.isValideMove(tetromino) && time.asMilliseconds() > limit)
 		{
 			tetromino.Fall();
 			time = clock.restart();
