@@ -22,16 +22,19 @@ class Tetromino
 		int bsize;
 		void Move(bool droite);
 		void Fall();
+		void Rotate();
+		int right_bsize();
+		void DebugDraw();
 		block actual_block[4][4];
 		int pos[2]; // 0 = x, 1 = y
 		Tetromino();
 
 	private:
 		block BlockI[4][4] = {
-			{vide,I,vide,vide},
-			{vide,I,vide,vide},
-			{vide,I,vide,vide},
-			{vide,I,vide,vide}
+			{nothing,I,nothing,nothing},
+			{nothing,I,nothing,nothing},
+			{nothing,I,nothing,nothing},
+			{nothing,I,nothing,nothing}
 		};
 
 		block BlockO[2][2] = {
@@ -41,31 +44,31 @@ class Tetromino
 
 		block BlockT[3][3] = {
 			{T,T,T},
-			{vide,T,vide},
-			{vide,vide,vide}
+			{nothing,T,nothing},
+			{nothing,nothing,nothing}
 		};
 
 		block BlockL[3][3] = {
 			{L,L,L},
-			{L,vide,vide},
-			{vide,vide,vide}
+			{L,nothing,nothing},
+			{nothing,nothing,nothing}
 		};
 
 		block BlockJ[3][3] = {
 			{J,J,J},
-			{vide,vide,J},
-			{vide,vide,vide}
+			{nothing,nothing,J},
+			{nothing,nothing,nothing}
 		};
 
 		block BlockZ[3][3] = {
-			{Z,Z,vide},
-			{vide,Z,Z},
-			{vide,vide,vide}
+			{Z,Z,nothing},
+			{nothing,Z,Z},
+			{nothing,nothing,nothing}
 		};
 
 		block BlockS[3][3] = {
-			{vide,S,S},
-			{S,S,vide},
-			{vide,vide,vide}
+			{nothing,S,S},
+			{S,S,nothing},
+			{nothing,nothing,nothing}
 		};
 };

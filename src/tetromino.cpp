@@ -78,3 +78,61 @@ void Tetromino::Fall()
 {
 	pos[1]++;
 }
+
+void Tetromino::Rotate()
+{
+	block temp[4][4];
+
+	// Effectuer la rotation
+	for (int i = 0; i < bsize; ++i) {
+		for (int j = 0; j < bsize; ++j) {
+			temp[i][j] = actual_block[bsize - j - 1][i];
+		}
+	}
+	
+	// copier la liste temp dans actual_block
+	for (int i = 0; i < bsize; ++i) {
+		for (int j = 0; j < bsize; ++j) {
+			actual_block[i][j] = temp[i][j];
+		}
+	}
+}
+
+int Tetromino::right_bsize()
+{
+	// get right bsize
+	int bsize_temp = 0;
+	int right_bsize = 0;
+	bool return_rbsize = true;
+	for (int colonne = 0; colonne < bsize; colonne++)
+	{
+		for (int ligne = 0; ligne < bsize; ligne++)
+		{
+			if (actual_block[ligne][colonne] != nothing)
+			{
+				bsize_temp++;
+			}
+		}
+		if (bsize_temp > right_bsize)
+		{
+			right_bsize = bsize_temp;
+		}
+		bsize_temp = 0;
+	}
+	printf("\nnice_bsize = %d\n", right_bsize);
+	
+	return right_bsize;
+}
+
+void Tetromino::DebugDraw()
+{
+	for (int ligne = 0; ligne < bsize; ligne++)
+	{
+		for (int colonne = 0; colonne < bsize; colonne++)
+		{
+			printf("%d ", actual_block[ligne][colonne]);
+		}
+		printf("\n");
+	}
+	printf("\n");
+}

@@ -1,5 +1,5 @@
-all: main.o grid.o
-	g++ main.o grid.o -o ./bin/app -L./lib -lsfml-graphics -lsfml-window -lsfml-system
+all: main.o grid.o tetromino.o
+	g++ main.o grid.o tetromino.o -o ./bin/app -L./lib -lsfml-graphics -lsfml-window -lsfml-system
 	./bin/app
 
 main.o:
@@ -8,7 +8,10 @@ main.o:
 grid.o:
 	g++ -c ./src/grid.cpp -I./include
 
-start:
+tetromino.o:
+	g++ -c ./src/tetromino.cpp -I./include
+
+run:
 	./bin/app
 
 clean:
