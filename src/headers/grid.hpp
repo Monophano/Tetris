@@ -10,13 +10,14 @@ class Grid
 		Grid();
 		void Add_block_to_map(Tetromino &tetromino);
 		void Clear_residus(Tetromino &tetromino);
-		bool isValideMove(Tetromino &tetromino);
+		bool HasnotReachedStg(Tetromino &tetromino);
 		void fixe_block(Tetromino &tetromino);
 		void Draw(sf::RenderWindow &window);
+		void DebugDraw();
 
 	private:
-		block underMap[20][10];
-		block map[20][10];
+		block underMap[21][10];
+		block map[21][10];
 		const float SIZECELL = 30.0f;
 		const int ROW = 20;
 		const int COL = 10;

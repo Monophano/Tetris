@@ -23,7 +23,7 @@ class Tetromino
 		void Move(bool droite);
 		void Fall();
 		void Rotate();
-		int right_bsize();
+		int nice_bsize();
 		void DebugDraw();
 		block actual_block[4][4];
 		int pos[2]; // 0 = x, 1 = y

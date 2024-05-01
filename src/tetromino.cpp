@@ -98,31 +98,28 @@ void Tetromino::Rotate()
 	}
 }
 
-int Tetromino::right_bsize()
+
+int Tetromino::nice_bsize()
 {
 	// get right bsize
 	int bsize_temp = 0;
-	int right_bsize = 0;
-	bool return_rbsize = true;
+	int nice_bsize = 0;
 	for (int colonne = 0; colonne < bsize; colonne++)
-	{
+  {
 		for (int ligne = 0; ligne < bsize; ligne++)
 		{
 			if (actual_block[ligne][colonne] != nothing)
-			{
 				bsize_temp++;
-			}
 		}
-		if (bsize_temp > right_bsize)
-		{
-			right_bsize = bsize_temp;
-		}
+		if (bsize_temp > nice_bsize)
+		nice_bsize = bsize_temp;
 		bsize_temp = 0;
-	}
-	printf("\nnice_bsize = %d\n", right_bsize);
+  }	
+	printf("\nnice_bsize = %d\n", nice_bsize);
 	
-	return right_bsize;
+	return nice_bsize;
 }
+
 
 void Tetromino::DebugDraw()
 {

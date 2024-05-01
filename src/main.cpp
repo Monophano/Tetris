@@ -4,7 +4,7 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(300,600), "Tétris");
+	sf::RenderWindow window(sf::VideoMode(300,600), "Tï¿½tris");
 	sf::Event event;
 
 	window.setFramerateLimit(60);
@@ -31,20 +31,19 @@ int main()
 						window.close();
 
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-						if (grid.isValideMove(tetromino))
-							tetromino.Move(true);
+						tetromino.Move(true);
 
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-						if (grid.isValideMove(tetromino))
-							tetromino.Move(false);
+						tetromino.Move(false);
 
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-						if (grid.isValideMove(tetromino))
-							tetromino.Rotate();
+						tetromino.Rotate();
 
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-						if (grid.isValideMove(tetromino))
-							limit = 200;
+						limit = 200;
+
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+						for(int c; true;);
 					break;
 
 				case sf::Event::KeyReleased:
@@ -53,26 +52,26 @@ int main()
 					break;
 			}
 		}
-
-		// Update section
+		// update section
 		sf::Time time = clock.getElapsedTime();
-		if (grid.isValideMove(tetromino) && time.asMilliseconds() > limit)
+		if (grid.HasnotReachedStg(tetromino) && time.asMilliseconds() > limit)
 		{
 			tetromino.Fall();
 			time = clock.restart();
 		}
-
-		if (grid.isValideMove(tetromino)) // ajoute le tetromino à la carte courante
+		
+		if (grid.HasnotReachedStg(tetromino)) // ajoute le tetromino ï¿½ la carte courante
 		{
 			grid.Add_block_to_map(tetromino);
+			grid.DebugDraw();
 		}
 		else
 		{
 			grid.fixe_block(tetromino);
 			tetromino = Tetromino();
+      		printf("[DEBGUG] -> le tetromino a Ã©tÃ© posÃ©\n");
 		}
 		printf("pos.x = %d\npos.y = %d\n", tetromino.pos[0], tetromino.pos[1]);
-		printf("is valide move : %d\n", grid.isValideMove(tetromino));
 
 		// Display section
 		window.clear();
@@ -80,7 +79,10 @@ int main()
 		grid.Draw(window);
 		window.display();
 
-		grid.Clear_residus(tetromino); // supprime les résidus de block
+		bool test = true;
+		printf("%d\n", test);
+
+		grid.Clear_residus(tetromino); // supprime les rï¿½sidus de block
 	}
 
 	return 0;
