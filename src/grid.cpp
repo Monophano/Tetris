@@ -102,11 +102,11 @@ void Grid::Draw(sf::RenderWindow &window)
 
 void Grid::DebugDraw()
 {
-	printf("Map :                 	UnderMap :\n");
-	for (int ligne = 0; ligne < REALROW; ligne++)
+	printf("Map :                 	        UnderMap :\n");
+	for (int ligne = 0; ligne < 21; ligne++)
 	{
 		// Map
-		for (int colonne = 0; colonne < MAPCOL; colonne ++)
+		for (int colonne = 0; colonne < 12; colonne ++)
 			printf("%d ", map[ligne][colonne]);
 
 		printf("	");
@@ -117,4 +117,5 @@ void Grid::DebugDraw()
 
 		printf("\n");
 	}
+	printf("\n");
 }
