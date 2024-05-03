@@ -1,42 +1,3 @@
-#pragma once
-#include <SFML/Graphics.hpp>
-#include <vector>
-#include <stdio.h>
-#include "tetromino.hpp"
-
-class Grid
-{
-	public:
-		Grid();
-		void Add_block_to_map(Tetromino &tetromino);
-		void Clear_residus(Tetromino &tetromino);
-		bool HasnotReachedStg(Tetromino &tetromino);
-		void fixe_block(Tetromino &tetromino);
-		void Draw(sf::RenderWindow &window);
-		void DebugDraw();
-
-	private:
-		block underMap[21][10];
-		block map[21][12];
-		const float SIZECELL = 30.0f;
-		const int ROW = 20;
-		const int COL = 10;
-    const int MAPCOL = 12;
-    const int REALROW = 21;
-		std::vector<sf::Color> color =
-		{
-			sf::Color(91,111,143), // vide
-			sf::Color::Cyan,
-			sf::Color::Yellow,
-			sf::Color::Magenta,
-			sf::Color(255,127,0), // orange
-			sf::Color(23,0,255), // bleu
-			sf::Color::Red,
-			sf::Color::Green,
-			sf::Color::Transparent // transparent
-		};
-};
-
 #include "headers/grid.hpp"
 
 Grid::Grid()
@@ -52,11 +13,11 @@ Grid::Grid()
 	for (int colonne = 0; colonne < COL; colonne++) // Initialise Laste Row with a complete line to simplify colision detection on last line
 		underMap[20][colonne] = I;
 
-  for (int ligne = 0; ligne < 21; ligne++) // Init first COL with a complete line to simplify colision detection on left side
-    map[ligne][0] = I;
+    for (int ligne = 0; ligne < 21; ligne++) // Init first COL with a complete line to simplify colision detection on left side
+        map[ligne][0] = I;
 
-  for (int ligne = 0; ligne < 21; ligne++) // Init last COL with a complete line to simplify colision detection on right side
-    map[ligne][11] = I;
+    for (int ligne = 0; ligne < 21; ligne++) // Init last COL with a complete line to simplify colision detection on right side
+        map[ligne][11] = I;
 
 }
 
