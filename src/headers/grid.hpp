@@ -17,10 +17,12 @@ class Grid
 
 	private:
 		block underMap[21][10];
-		block map[21][10];
+		block map[21][12];
 		const float SIZECELL = 30.0f;
 		const int ROW = 20;
 		const int COL = 10;
+    const int MAPCOL = 12;
+    const int REALROW = 21;
 		std::vector<sf::Color> color =
 		{
 			sf::Color(91,111,143), // vide
