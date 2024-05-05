@@ -1,6 +1,6 @@
-all: main.o grid.o tetromino.o run
+all: main.o grid.o tetromino.o
 	g++ main.o grid.o tetromino.o -o ./bin/app -L./lib -lsfml-graphics -lsfml-window -lsfml-system -Wall
-	run
+	./bin/app > run.log
 
 main.o:
 	g++ -c ./src/main.cpp -I./include

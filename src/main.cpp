@@ -4,7 +4,7 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(300,600), "T�tris");
+	sf::RenderWindow window(sf::VideoMode(300,600), "Tetris");
 	sf::Event event;
 
 	window.setFramerateLimit(60);

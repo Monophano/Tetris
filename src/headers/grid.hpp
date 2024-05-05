@@ -11,13 +11,14 @@ class Grid
 		void Add_block_to_map(Tetromino &tetromino);
 		void Clear_residus(Tetromino &tetromino);
 		bool HasnotReachedStg(Tetromino &tetromino);
+		bool HasnotCollidedWithStg(Tetromino &tetromino);
 		void fixe_block(Tetromino &tetromino);
 		void Draw(sf::RenderWindow &window);
 		void DebugDraw();
 
 	private:
 		block underMap[21][10];
-		block map[21][12];
+		block map[21][11];
 		const float SIZECELL = 30.0f;
 		const int ROW = 20;
 		const int COL = 10;
@@ -28,7 +29,7 @@ class Grid
 			sf::Color::Yellow,
 			sf::Color::Magenta,
 			sf::Color(255,127,0), // orange
-			sf::Color(23,0,255), // bleu
+			sf::Color(23,0,255), // blue
 			sf::Color::Red,
 			sf::Color::Green,
 			sf::Color::Transparent // transparent

@@ -2,8 +2,8 @@
 
 Grid::Grid()
 {
-	for (int ligne = 0; ligne < ROW; ligne++)
-		for (int colonne = 0; colonne < COL; colonne++)
+	for (int ligne = 0; ligne < 21; ligne++)
+		for (int colonne = 0; colonne < 11; colonne++)
 			map[ligne][colonne] = nothing;
 
 	for (int ligne = 0; ligne < ROW; ligne++)
@@ -13,12 +13,17 @@ Grid::Grid()
 	for (int colonne = 0; colonne < COL; colonne++) // Initialise Laste Row with a complete line to simplify colision detection on last line
 		underMap[20][colonne] = I;
 
-    for (int ligne = 0; ligne < 21; ligne++) // Init first COL with a complete line to simplify colision detection on left side
-        map[ligne][0] = I;
+   for (int ligne = 0; ligne < 21; ligne++)
+		map[ligne][10] = I;
 
-    for (int ligne = 0; ligne < 21; ligne++) // Init last COL with a complete line to simplify colision detection on right side
-        map[ligne][11] = I;
-
+  for (int ligne = 0; ligne < 21; ligne++)
+  {
+    for (int colonne = 0; colonne < 11; colonne++)
+    {
+      printf("%d ", map[ligne][colonne]);
+    }
+    printf("\n");
+  }
 }
 
 
@@ -60,6 +65,11 @@ bool Grid::HasnotReachedStg(Tetromino &tetromino)
 	return true;
 }
 
+bool Grid::HasnotCollidedWithStg(Tetromino &tetromino)
+{
+  return true;
+}
+
 void Grid::fixe_block(Tetromino &tetromino)
 {
 	int pos_temp[2] = { tetromino.pos[0], tetromino.pos[1] };
@@ -80,7 +90,7 @@ void Grid::Draw(sf::RenderWindow &window)
 	// Grille du dessous
 	for (int ligne = 0; ligne < ROW; ligne++)
 	{
-		for (int colonne = 0; colonne < COL; colonne++)
+		for (int colonne = 1; colonne < COL; colonne++)
 		{
 			cell.setFillColor(color[underMap[ligne][colonne]]);
 			cell.setPosition(colonne * SIZECELL, ligne * SIZECELL);
@@ -91,9 +101,9 @@ void Grid::Draw(sf::RenderWindow &window)
 	// Grille du dessus
 	for (int ligne = 0; ligne < ROW; ligne++)
 	{
-		for (int colonne = 1; colonne < COL; colonne++)
+		for (int colonne = 0; colonne < COL; colonne++)
 		{
-			cell.setFillColor(color[map[ligne][colonne]]);
+      		cell.setFillColor(color[map[ligne][colonne+1]]);
 			cell.setPosition(colonne * SIZECELL, ligne * SIZECELL);
 			window.draw(cell);
 		}
@@ -106,7 +116,7 @@ void Grid::DebugDraw()
 	for (int ligne = 0; ligne < 21; ligne++)
 	{
 		// Map
-		for (int colonne = 0; colonne < 12; colonne ++)
+		for (int colonne = 0; colonne < 11; colonne ++)
 			printf("%d ", map[ligne][colonne]);
 
 		printf("	");
