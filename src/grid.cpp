@@ -3,7 +3,7 @@
 Grid::Grid()
 {
 	for (int ligne = 0; ligne < 21; ligne++)
-		for (int colonne = 0; colonne < 11; colonne++)
+		for (int colonne = 0; colonne < COL; colonne++)
 			map[ligne][colonne] = nothing;
 
 	for (int ligne = 0; ligne < ROW; ligne++)
@@ -13,12 +13,9 @@ Grid::Grid()
 	for (int colonne = 0; colonne < COL; colonne++) // Initialise Laste Row with a complete line to simplify colision detection on last line
 		underMap[20][colonne] = I;
 
-   for (int ligne = 0; ligne < 21; ligne++)
-		map[ligne][10] = I;
-
   for (int ligne = 0; ligne < 21; ligne++)
   {
-    for (int colonne = 0; colonne < 11; colonne++)
+    for (int colonne = 0; colonne < COL; colonne++)
     {
       printf("%d ", map[ligne][colonne]);
     }
@@ -49,25 +46,33 @@ void Grid::Clear_residus(Tetromino &tetromino)
 
 bool Grid::HasnotReachedStg(Tetromino &tetromino)
 {
-	for(int l = tetromino.bsize-1;  l >= 0 ; l--)
-		for(int c = 0;  c < tetromino.bsize; c++)
-		{
-			if (tetromino.actual_block[l][c] != nothing)
-			{
-				if ( underMap[tetromino.pos[1]+l+1][tetromino.pos[0]+c] != vide)
-				{
-					printf("Move non valide\n");
+	for(int ligne = tetromino.bsize-1;  ligne >= 0 ; ligne--)
+		for(int colonne = 0;  colonne < tetromino.bsize; colonne++)
+			if (tetromino.actual_block[ligne][colonne] != nothing)
+				if (underMap[tetromino.pos[1]+ligne+1][tetromino.pos[0]+colonne] != vide)
 					return false;
-				}
-			}
-		}
-	printf("Move valide\n");
 	return true;
 }
 
-bool Grid::HasnotCollidedWithStg(Tetromino &tetromino)
+bool Grid::HasnotCollidedWithStg(Tetromino &tetromino, bool touche_gauche)
 {
-  return true;
+	if (touche_gauche)
+	{
+		for (int ligne = 0; ligne < tetromino.bsize; ligne++)
+			for (int colonne = 0; colonne < tetromino.bsize; colonne++)
+				if (tetromino.actual_block[ligne][colonne] != nothing)
+					if (underMap[tetromino.pos[1] + ligne][(tetromino.pos[0] + colonne) - 1] != vide)
+						return false;
+	}
+	else
+	{
+		for (int ligne = 0; ligne < tetromino.bsize; ligne++)
+			for (int colonne = 0; colonne < tetromino.bsize; colonne++)
+				if (tetromino.actual_block[ligne][colonne] != nothing)
+					if (underMap[tetromino.pos[1] + ligne][(tetromino.pos[0] + colonne) - 1] != vide)
+						return false;
+	}
+	return true;
 }
 
 void Grid::fixe_block(Tetromino &tetromino)
@@ -90,7 +95,7 @@ void Grid::Draw(sf::RenderWindow &window)
 	// Grille du dessous
 	for (int ligne = 0; ligne < ROW; ligne++)
 	{
-		for (int colonne = 1; colonne < COL; colonne++)
+		for (int colonne = 0; colonne < COL; colonne++)
 		{
 			cell.setFillColor(color[underMap[ligne][colonne]]);
 			cell.setPosition(colonne * SIZECELL, ligne * SIZECELL);
@@ -103,7 +108,7 @@ void Grid::Draw(sf::RenderWindow &window)
 	{
 		for (int colonne = 0; colonne < COL; colonne++)
 		{
-      		cell.setFillColor(color[map[ligne][colonne+1]]);
+      		cell.setFillColor(color[map[ligne][colonne]]);
 			cell.setPosition(colonne * SIZECELL, ligne * SIZECELL);
 			window.draw(cell);
 		}
@@ -116,7 +121,7 @@ void Grid::DebugDraw()
 	for (int ligne = 0; ligne < 21; ligne++)
 	{
 		// Map
-		for (int colonne = 0; colonne < 11; colonne ++)
+		for (int colonne = 0; colonne < COL; colonne ++)
 			printf("%d ", map[ligne][colonne]);
 
 		printf("	");

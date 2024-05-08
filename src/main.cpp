@@ -31,7 +31,8 @@ int main()
 						window.close();
 
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-						tetromino.Move(true);
+						if (grid.HasnotCollidedWithStg(tetromino))
+							tetromino.Move(true);
 
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 						tetromino.Move(false);
