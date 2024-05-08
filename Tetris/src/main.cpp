@@ -31,11 +31,12 @@ int main()
 						window.close();
 
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-						if (grid.HasnotCollidedWithStg(tetromino))
+						if (grid.HasnotCollidedWithStg(tetromino,false))
 							tetromino.Move(true);
 
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-						tetromino.Move(false);
+						if (grid.HasnotCollidedWithStg(tetromino,true))
+							tetromino.Move(false);
 
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 						tetromino.Rotate();

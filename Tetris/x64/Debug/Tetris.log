@@ -1,2 +1,7 @@
-﻿  grid.cpp
-  Tetris.vcxproj -> C:\Users\Noé\Documents\prog\Tetris\x64\Debug\Tetris.exe
+﻿  main.cpp
+G:\perso\programmation\C++\Tetris\Tetris\src\main.cpp(47,15): warning C4101: 'c' : variable locale non référencée
+  tetromino.cpp
+G:\perso\programmation\C++\Tetris\Tetris\src\tetromino.cpp(5,12): warning C4244: 'argument' : conversion de 'time_t' en 'unsigned int', perte possible de données
+  Génération de code en cours...
+  LINK : G:\perso\programmation\C++\Tetris\x64\Debug\Tetris.exe introuvable ou non généré par la dernière édition de liens incrémentielle ; édition de liens complète en cours
+  Tetris.vcxproj -> G:\perso\programmation\C++\Tetris\x64\Debug\Tetris.exe
