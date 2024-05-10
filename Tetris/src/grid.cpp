@@ -67,9 +67,9 @@ bool Grid::HasnotCollidedWithStg(Tetromino &tetromino, bool touche_gauche)
 	else
 	{
 		for (int ligne = 0; ligne < tetromino.bsize; ligne++)
-			for (int colonne = 0; colonne < tetromino.bsize; colonne++)
+			for (int colonne = tetromino.bsize - 1; colonne >= 0; colonne--)
 				if (tetromino.actual_block[ligne][colonne] != nothing)
-					if (underMap[tetromino.pos[1] + ligne][(tetromino.pos[0] + colonne) - 1] != vide)
+					if (underMap[tetromino.pos[1] + ligne][(tetromino.pos[0] + colonne) + 1] != vide)
 						return false;
 	}
 	return true;

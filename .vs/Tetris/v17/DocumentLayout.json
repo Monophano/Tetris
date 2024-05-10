@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|solutionrelative:Tetris\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\grid.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|solutionrelative:Tetris\\src\\grid.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\tetromino.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|solutionrelative:Tetris\\src\\tetromino.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|solutionrelative:Tetris\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,29 +22,43 @@
       "DocumentGroups": [
         {
           "DockedWidth": 563,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "tetromino.cpp",
+              "DocumentMoniker": "G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\tetromino.cpp",
+              "RelativeDocumentMoniker": "Tetris\\src\\tetromino.cpp",
+              "ToolTip": "G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\tetromino.cpp",
+              "RelativeToolTip": "Tetris\\src\\tetromino.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-10T12:05:43.74Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "grid.cpp",
               "DocumentMoniker": "G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\grid.cpp",
               "RelativeDocumentMoniker": "Tetris\\src\\grid.cpp",
               "ToolTip": "G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\grid.cpp",
               "RelativeToolTip": "Tetris\\src\\grid.cpp",
-              "ViewState": "AQIAACcAAAAAAAAAAAAAAEgAAAATAAAA",
+              "ViewState": "AQIAACcAAAAAAAAAAAAAAEcAAABKAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-05-08T22:21:01.723Z"
+              "WhenOpened": "2024-05-08T22:21:01.723Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "main.cpp",
               "DocumentMoniker": "G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\main.cpp",
               "RelativeDocumentMoniker": "Tetris\\src\\main.cpp",
               "ToolTip": "G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\main.cpp",
               "RelativeToolTip": "Tetris\\src\\main.cpp",
-              "ViewState": "AQIAABUAAAAAAAAAAAAUwCQAAAAzAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACgAAAA8AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-05-08T22:17:59.474Z",
               "EditorCaption": ""

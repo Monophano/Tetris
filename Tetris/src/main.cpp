@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include "headers/grid.hpp"
 
+#define touche_gauche true
+#define touche_droite false
+
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(300,600), "Tetris");
@@ -31,11 +34,11 @@ int main()
 						window.close();
 
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-						if (grid.HasnotCollidedWithStg(tetromino,false))
+						if (grid.HasnotCollidedWithStg(tetromino,touche_droite))
 							tetromino.Move(true);
 
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-						if (grid.HasnotCollidedWithStg(tetromino,true))
+						if (grid.HasnotCollidedWithStg(tetromino,touche_gauche))
 							tetromino.Move(false);
 
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
