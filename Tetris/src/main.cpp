@@ -5,6 +5,8 @@
 #define touche_gauche true
 #define touche_droite false
 
+int inutile = 0;
+
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(300,600), "Tetris");
@@ -47,8 +49,11 @@ int main()
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 						limit = 200;
 
-					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-						for(int c; true;);
+					//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+					//	inutile = 0;
+					break;
+
+				default:
 					break;
 
 				case sf::Event::KeyReleased:
