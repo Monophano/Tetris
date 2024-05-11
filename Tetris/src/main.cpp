@@ -5,7 +5,7 @@
 #define touche_gauche true
 #define touche_droite false
 
-int inutile = 0;
+//int inutile = 0;
 
 int main()
 {
@@ -53,12 +53,12 @@ int main()
 					//	inutile = 0;
 					break;
 
-				default:
-					break;
-
 				case sf::Event::KeyReleased:
 					if (event.key.code == sf::Keyboard::Down)
 						limit = 500;
+					break;
+
+				default:
 					break;
 			}
 		}

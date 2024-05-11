@@ -18,7 +18,7 @@ class Grid
 
 	private:
 		block underMap[21][10];
-		block map[21][10];
+		block map[21][12];
 		const float SIZECELL = 30.0f;
 		const int ROW = 20;
 		const int COL = 10;
