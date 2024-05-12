@@ -63,6 +63,7 @@ int main()
 			}
 		}
 		// update section
+		grid.fixe_map(tetromino);
 		sf::Time time = clock.getElapsedTime();
 		if (grid.HasnotReachedStg(tetromino) && time.asMilliseconds() > limit)
 		{

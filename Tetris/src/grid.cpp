@@ -13,13 +13,12 @@ Grid::Grid()
 	for (int colonne = 0; colonne < COL; colonne++) // Initialise Laste Row with a complete line to simplify colision detection on last line
 		underMap[20][colonne] = I;
 	
-	for (int ligne = 0; ligne < ROW; ligne++)
+	for (int ligne = 0; ligne < 21; ligne++)
 	{
 		map[ligne][0] = I;
 		map[ligne][11] = I;
 	}
 
-	/*
 	for (int ligne = 0; ligne < 21; ligne++)
 	{
 		for (int colonne = 0; colonne < COL; colonne++)
@@ -28,7 +27,6 @@ Grid::Grid()
 		}
 		printf("\n");
 	}
-	*/
 }
 
 
@@ -48,7 +46,8 @@ void Grid::Clear_residus(Tetromino &tetromino)
 {
 	for (int ligne = 0; ligne < tetromino.bsize; ligne++)
 		for (int colonne = 0; colonne < tetromino.bsize; colonne++)
-			map[ligne + tetromino.pos[1]][colonne + tetromino.pos[0]] = nothing;
+			if (tetromino.actual_block[ligne][colonne] != nothing)
+				map[ligne + tetromino.pos[1]][colonne + tetromino.pos[0]] = nothing;
 }
 
 
@@ -56,12 +55,9 @@ bool Grid::HasnotReachedStg(Tetromino &tetromino)
 {
 	for(int ligne = tetromino.bsize-1;  ligne >= 0 ; ligne--)
 		for (int colonne = 0; colonne < tetromino.bsize; colonne++)
-		{
-			printf("\nligne = %d colonne = %d\n", ligne, colonne);
 			if (tetromino.actual_block[ligne][colonne] != nothing)
 				if (underMap[tetromino.pos[1] + ligne + 1][(tetromino.pos[0]-1) + colonne] != vide)
 					return false;
-		}
 	return true;
 }
 
@@ -73,7 +69,7 @@ bool Grid::HasnotCollidedWithStg(Tetromino &tetromino, bool touche_gauche)
 		for (int ligne = 0; ligne < tetromino.bsize; ligne++)
 			for (int colonne = 0; colonne < tetromino.bsize; colonne++)
 				if (tetromino.actual_block[ligne][colonne] != nothing)
-					if (underMap[tetromino.pos[1] + ligne][(tetromino.pos[0] + colonne) - 1] != vide)
+					if (underMap[tetromino.pos[1] + ligne][((tetromino.pos[0]-1) + colonne) - 1] != vide)
 						return false;
 
 		// collision avec les bords de la carte
@@ -112,6 +108,15 @@ void Grid::fixe_block(Tetromino &tetromino)
 			if (tetromino.actual_block[ligne][colonne] != nothing)
 				underMap[ligne + pos_temp[1]][colonne + (pos_temp[0]-1)] = tetromino.actual_block[ligne][colonne];
 		}
+	}
+}
+
+void Grid::fixe_map(Tetromino& tetromino)
+{
+	for (int ligne = 0; ligne < 21; ligne++)
+	{
+		map[ligne][0] = I;
+		map[ligne][11] = I;
 	}
 }
 

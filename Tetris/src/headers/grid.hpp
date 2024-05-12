@@ -13,6 +13,7 @@ class Grid
 		bool HasnotReachedStg(Tetromino &tetromino);
 		bool HasnotCollidedWithStg(Tetromino &tetromino, bool touche_gauche);
 		void fixe_block(Tetromino &tetromino);
+		void fixe_map(Tetromino& tetromino); // il peut y avoir des tetromino à passer en dehors de la carte à cause d'un bug
 		void Draw(sf::RenderWindow &window);
 		void DebugDraw();
 

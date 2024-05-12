@@ -11,16 +11,16 @@
       "RelativeMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|solutionrelative:Tetris\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\headers\\grid.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|solutionrelative:Tetris\\src\\headers\\grid.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\tetromino.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|solutionrelative:Tetris\\src\\tetromino.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\headers\\tetromino.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|solutionrelative:Tetris\\src\\headers\\tetromino.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\headers\\grid.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|solutionrelative:Tetris\\src\\headers\\grid.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,36 +35,36 @@
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "grid.hpp",
-              "DocumentMoniker": "G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\headers\\grid.hpp",
-              "RelativeDocumentMoniker": "Tetris\\src\\headers\\grid.hpp",
-              "ToolTip": "G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\headers\\grid.hpp",
-              "RelativeToolTip": "Tetris\\src\\headers\\grid.hpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAASAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-05-10T21:25:07.349Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "tetromino.hpp",
               "DocumentMoniker": "G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\headers\\tetromino.hpp",
               "RelativeDocumentMoniker": "Tetris\\src\\headers\\tetromino.hpp",
               "ToolTip": "G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\headers\\tetromino.hpp",
               "RelativeToolTip": "Tetris\\src\\headers\\tetromino.hpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-05-10T21:25:06.187Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "grid.hpp",
+              "DocumentMoniker": "G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\headers\\grid.hpp",
+              "RelativeDocumentMoniker": "Tetris\\src\\headers\\grid.hpp",
+              "ToolTip": "G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\headers\\grid.hpp",
+              "RelativeToolTip": "Tetris\\src\\headers\\grid.hpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAB3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-05-10T21:25:07.349Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "tetromino.cpp",
               "DocumentMoniker": "G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\tetromino.cpp",
               "RelativeDocumentMoniker": "Tetris\\src\\tetromino.cpp",
               "ToolTip": "G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\tetromino.cpp",
               "RelativeToolTip": "Tetris\\src\\tetromino.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAADEAAAAAAAAAAAAwwFMAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-05-10T12:05:43.74Z"
             },
@@ -76,7 +76,7 @@
               "RelativeDocumentMoniker": "Tetris\\src\\grid.cpp",
               "ToolTip": "G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\grid.cpp",
               "RelativeToolTip": "Tetris\\src\\grid.cpp",
-              "ViewState": "AQIAAC0AAAAAAAAAAAAAAD4AAAAAAAAA",
+              "ViewState": "AQIAADwAAAAAAAAAAAAAAEcAAABAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-05-08T22:21:01.723Z",
               "EditorCaption": ""
@@ -89,7 +89,7 @@
               "RelativeDocumentMoniker": "Tetris\\src\\main.cpp",
               "ToolTip": "G:\\perso\\programmation\\C\u002B\u002B\\Tetris\\Tetris\\src\\main.cpp",
               "RelativeToolTip": "Tetris\\src\\main.cpp",
-              "ViewState": "AQIAACkAAAAAAAAAAADwv0UAAAAAAAAA",
+              "ViewState": "AQIAADUAAAAAAAAAAAAAAEEAAAAbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-05-08T22:17:59.474Z",
               "EditorCaption": ""

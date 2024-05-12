@@ -4,6 +4,7 @@ Tetromino::Tetromino()
 {
 	srand(time(nullptr));
 	block numblock = (block)((int)(rand()%7+1));
+	//numblock = I;
 	printf("Le block choisis est %d\n", numblock);
 	switch (numblock)
 	{
