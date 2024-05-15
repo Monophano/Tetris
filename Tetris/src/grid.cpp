@@ -37,7 +37,7 @@ void Grid::Add_block_to_map(Tetromino &tetromino)
 		for (int colonne = 0; colonne < tetromino.bsize; colonne++)
 		{
 			if (tetromino.actual_block[ligne][colonne] != nothing)
-				map[ligne + tetromino.pos[1]][colonne + tetromino.pos[0]] = tetromino.actual_block[ligne][colonne];
+				map[ligne + tetromino.pos.y][colonne + tetromino.pos.x] = tetromino.actual_block[ligne][colonne];
 		}
 	}
 }
@@ -47,7 +47,7 @@ void Grid::Clear_residus(Tetromino &tetromino)
 	for (int ligne = 0; ligne < tetromino.bsize; ligne++)
 		for (int colonne = 0; colonne < tetromino.bsize; colonne++)
 			if (tetromino.actual_block[ligne][colonne] != nothing)
-				map[ligne + tetromino.pos[1]][colonne + tetromino.pos[0]] = nothing;
+				map[ligne + tetromino.pos.y][colonne + tetromino.pos.x] = nothing;
 }
 
 
@@ -56,7 +56,7 @@ bool Grid::HasnotReachedStg(Tetromino &tetromino)
 	for(int ligne = tetromino.bsize-1;  ligne >= 0 ; ligne--)
 		for (int colonne = 0; colonne < tetromino.bsize; colonne++)
 			if (tetromino.actual_block[ligne][colonne] != nothing)
-				if (underMap[tetromino.pos[1] + ligne + 1][(tetromino.pos[0]-1) + colonne] != vide)
+				if (underMap[tetromino.pos.y + ligne + 1][(tetromino.pos.x-1) + colonne] != vide)
 					return false;
 	return true;
 }
@@ -69,14 +69,14 @@ bool Grid::HasnotCollidedWithStg(Tetromino &tetromino, bool touche_gauche)
 		for (int ligne = 0; ligne < tetromino.bsize; ligne++)
 			for (int colonne = 0; colonne < tetromino.bsize; colonne++)
 				if (tetromino.actual_block[ligne][colonne] != nothing)
-					if (underMap[tetromino.pos[1] + ligne][((tetromino.pos[0]-1) + colonne) - 1] != vide)
+					if (underMap[tetromino.pos.y + ligne][((tetromino.pos.x-1) + colonne) - 1] != vide)
 						return false;
 
 		// collision avec les bords de la carte
 		for (int ligne = 0; ligne < tetromino.bsize; ligne++)
 			for (int colonne = 0; colonne < tetromino.bsize; colonne++)
 				if (tetromino.actual_block[ligne][colonne] != nothing)
-					if (map[tetromino.pos[1] + ligne][(tetromino.pos[0] + colonne) - 1] != nothing)
+					if (map[tetromino.pos.y + ligne][(tetromino.pos.x + colonne) - 1] != nothing)
 						return false;
 	}
 	else
@@ -85,30 +85,40 @@ bool Grid::HasnotCollidedWithStg(Tetromino &tetromino, bool touche_gauche)
 		for (int ligne = 0; ligne < tetromino.bsize; ligne++)
 			for (int colonne = tetromino.bsize - 1; colonne >= 0; colonne--)
 				if (tetromino.actual_block[ligne][colonne] != nothing)
-					if (underMap[tetromino.pos[1] + ligne][(tetromino.pos[0] + colonne) + 1] != vide)
+					if (underMap[tetromino.pos.y + ligne][(tetromino.pos.x + colonne) + 1] != vide)
 						return false;
 
 		// collision avec les bords de la carte
 		for (int ligne = 0; ligne < tetromino.bsize; ligne++)
 			for (int colonne = tetromino.bsize - 1; colonne >= 0; colonne--)
 				if (tetromino.actual_block[ligne][colonne] != nothing)
-					if (map[tetromino.pos[1] + ligne][(tetromino.pos[0] + colonne) + 1] != nothing)
+					if (map[tetromino.pos.y + ligne][(tetromino.pos.x + colonne) + 1] != nothing)
 						return false;
 	}
 	return true;
 }
 
-void Grid::fixe_block(Tetromino &tetromino)
+bool Grid::CanRotate(Tetromino& tetromino)
 {
-	int pos_temp[2] = { tetromino.pos[0], tetromino.pos[1] };
+	// verifier si un bout du tetromino est sorti de la carte
 	for (int ligne = 0; ligne < tetromino.bsize; ligne++)
-	{
 		for (int colonne = 0; colonne < tetromino.bsize; colonne++)
-		{
+			if (colonne + tetromino.pos.x <= 0 || colonne + tetromino.pos.x > 10)
+				return false;
+
+	return true;
+}
+
+void Grid::fixe_block(Tetromino& tetromino)
+{
+	position pos_temp;
+	pos_temp.x = tetromino.pos.x;
+	pos_temp.y = tetromino.pos.y;
+
+	for (int ligne = 0; ligne < tetromino.bsize; ligne++)
+		for (int colonne = 0; colonne < tetromino.bsize; colonne++)
 			if (tetromino.actual_block[ligne][colonne] != nothing)
-				underMap[ligne + pos_temp[1]][colonne + (pos_temp[0]-1)] = tetromino.actual_block[ligne][colonne];
-		}
-	}
+				underMap[ligne + pos_temp.y][colonne + (pos_temp.x-1)] = tetromino.actual_block[ligne][colonne];
 }
 
 void Grid::fixe_map(Tetromino& tetromino)

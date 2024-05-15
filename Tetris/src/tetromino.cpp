@@ -4,16 +4,16 @@ Tetromino::Tetromino()
 {
 	srand(time(nullptr));
 	block numblock = (block)((int)(rand()%7+1));
-	//numblock = I;
+	//numblock = L;
 	printf("Le block choisis est %d\n", numblock);
 	switch (numblock)
 	{
-	case I:
-		bsize = 4;
-		for (int i = 0; i < bsize; i++)
-			for (int j = 0; j < bsize; j++)
-				actual_block[i][j] = BlockI[i][j];
-			pos[0] = 5;
+		case I:
+			bsize = 4;
+			for (int i = 0; i < bsize; i++)
+				for (int j = 0; j < bsize; j++)
+					actual_block[i][j] = BlockI[i][j];
+			pos.x = 5;
 			break;
 
 		case O:
@@ -21,7 +21,7 @@ Tetromino::Tetromino()
 			for (int i = 0; i < bsize; i++)
 				for (int j = 0; j < bsize; j++)
 					actual_block[i][j] = BlockO[i][j];
-			pos[0] = 4;
+			pos.x = 4;
 			break;
 
 		case T:
@@ -29,7 +29,7 @@ Tetromino::Tetromino()
 			for (int i = 0; i < bsize; i++)
 				for (int j = 0; j < bsize; j++)
 					actual_block[i][j] = BlockT[i][j];
-			pos[0] = 4;
+			pos.x = 4;
 			break;
 
 		case L:
@@ -37,7 +37,7 @@ Tetromino::Tetromino()
 			for (int i = 0; i < bsize; i++)
 				for (int j = 0; j < bsize; j++)
 					actual_block[i][j] = BlockL[i][j];
-			pos[0] = 4;
+			pos.x = 4;
 			break;
 
 		case J:
@@ -45,7 +45,7 @@ Tetromino::Tetromino()
 			for (int i = 0; i < bsize; i++)
 				for (int j = 0; j < bsize; j++)
 					actual_block[i][j] = BlockJ[i][j];
-			pos[0] = 4;
+			pos.x = 4;
 			break;
 
 		case Z:
@@ -53,7 +53,7 @@ Tetromino::Tetromino()
 			for (int i = 0; i < bsize; i++)
 				for (int j = 0; j < bsize; j++)
 					actual_block[i][j] = BlockZ[i][j];
-			pos[0] = 4;
+			pos.x = 4;
 			break;
 
 		case S:
@@ -61,23 +61,23 @@ Tetromino::Tetromino()
 			for (int i = 0; i < bsize; i++)
 				for (int j = 0; j < bsize; j++)
 					actual_block[i][j] = BlockS[i][j];
-			pos[0] = 4;
+			pos.x = 4;
 			break;
 	}
-	pos[1] = 0;
+	pos.y = 0;
 }
 
 void Tetromino::Move(bool droite)
 {
 	if (droite)
-		pos[0]++;
+		pos.x++;
 	else // gauche
-		pos[0]--;
+		pos.x--;
 }
 
 void Tetromino::Fall()
 {
-	pos[1]++;
+	pos.y++;
 }
 
 void Tetromino::Rotate()

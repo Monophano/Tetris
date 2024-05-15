@@ -18,7 +18,7 @@ int main()
 	Tetromino tetromino;
 	sf::Clock clock;
 
-	int limit = 500; // pour l'instant
+	int limit = 600; // pour l'instant
 
 	while (window.isOpen())
 	{
@@ -44,10 +44,11 @@ int main()
 							tetromino.Move(false);
 
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-						tetromino.Rotate();
+						if (grid.CanRotate(tetromino))
+							tetromino.Rotate();
 
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-						limit = 200;
+						limit = 100;
 
 					//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 					//	inutile = 0;
@@ -55,7 +56,7 @@ int main()
 
 				case sf::Event::KeyReleased:
 					if (event.key.code == sf::Keyboard::Down)
-						limit = 500;
+						limit = 600;
 					break;
 
 				default:
@@ -74,24 +75,21 @@ int main()
 		if (grid.HasnotReachedStg(tetromino)) // ajoute le tetromino � la carte courante
 		{
 			grid.Add_block_to_map(tetromino);
-			grid.DebugDraw();
+			//grid.DebugDraw();
 		}
 		else
 		{
 			grid.fixe_block(tetromino);
 			tetromino = Tetromino();
-      		printf("[DEBGUG] -> le tetromino a été posé\n");
+      		//printf("[DEBGUG] -> le tetromino a été posé\n");
 		}
-		printf("pos.x = %d\npos.y = %d\n", tetromino.pos[0], tetromino.pos[1]);
+		//printf("pos.x = %d pos.y = %d\n", tetromino.pos[0], tetromino.pos[1]);
 
 		// Display section
 		window.clear();
-		tetromino.DebugDraw();
+		//tetromino.DebugDraw();
 		grid.Draw(window);
 		window.display();
-
-		bool test = true;
-		printf("%d\n", test);
 
 		grid.Clear_residus(tetromino); // supprime les r�sidus de block
 	}

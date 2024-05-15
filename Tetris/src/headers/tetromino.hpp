@@ -2,19 +2,7 @@
 #include <ctime>
 #include <stdlib.h>
 #include <stdio.h>
-
-enum block
-{
-	I = 1,
-	O = 2,
-	T = 3,
-	L = 4,
-	J = 5,
-	Z = 6,
-	S = 7,
-	vide = 0,
-	nothing = 8
-};
+#include "globals.hpp"
 
 class Tetromino
 {
@@ -26,7 +14,7 @@ class Tetromino
 		int nice_bsize();
 		void DebugDraw();
 		block actual_block[4][4];
-		int pos[2]; // 0 = x, 1 = y
+		position pos;
 		Tetromino();
 
 	private:
