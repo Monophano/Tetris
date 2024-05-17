@@ -85,7 +85,7 @@ bool Grid::HasnotCollidedWithStg(Tetromino &tetromino, bool touche_gauche)
 		for (int ligne = 0; ligne < tetromino.bsize; ligne++)
 			for (int colonne = tetromino.bsize - 1; colonne >= 0; colonne--)
 				if (tetromino.actual_block[ligne][colonne] != nothing)
-					if (underMap[tetromino.pos.y + ligne][(tetromino.pos.x + colonne) + 1] != vide)
+					if (underMap[tetromino.pos.y + ligne][((tetromino.pos.x-1) + colonne) + 1] != vide)
 						return false;
 
 		// collision avec les bords de la carte
@@ -102,9 +102,14 @@ bool Grid::CanRotate(Tetromino& tetromino)
 {
 	// verifier si un bout du tetromino est sorti de la carte
 	for (int ligne = 0; ligne < tetromino.bsize; ligne++)
+	{
 		for (int colonne = 0; colonne < tetromino.bsize; colonne++)
-			if (colonne + tetromino.pos.x <= 0 || colonne + tetromino.pos.x > 10)
+			if (colonne + tetromino.pos.x <= 0 // check rotation in the left side
+				|| colonne + tetromino.pos.x > 10 // check rotation in the right side
+				|| underMap[ligne + tetromino.pos.y][colonne + (tetromino.pos.x-1)] != vide
+				)
 				return false;
+	}
 
 	return true;
 }
