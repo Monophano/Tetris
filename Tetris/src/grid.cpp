@@ -29,7 +29,7 @@ Grid::Grid()
 	}
 }
 
-
+/* Ajout d'un tetromino à la grille de jeu */
 void Grid::Add_block_to_map(Tetromino &tetromino)
 {
 	for (int ligne = 0; ligne < tetromino.bsize; ligne++)
@@ -42,6 +42,18 @@ void Grid::Add_block_to_map(Tetromino &tetromino)
 	}
 }
 
+void Grid::fixe_block(Tetromino& tetromino)
+{
+	position pos_temp;
+	pos_temp.x = tetromino.pos.x;
+	pos_temp.y = tetromino.pos.y;
+
+	for (int ligne = 0; ligne < tetromino.bsize; ligne++)
+		for (int colonne = 0; colonne < tetromino.bsize; colonne++)
+			if (tetromino.actual_block[ligne][colonne] != nothing)
+				underMap[ligne + pos_temp.y][colonne + (pos_temp.x - 1)] = tetromino.actual_block[ligne][colonne];
+}
+
 void Grid::Clear_residus(Tetromino &tetromino)
 {
 	for (int ligne = 0; ligne < tetromino.bsize; ligne++)
@@ -50,7 +62,7 @@ void Grid::Clear_residus(Tetromino &tetromino)
 				map[ligne + tetromino.pos.y][colonne + tetromino.pos.x] = nothing;
 }
 
-
+/* Collision */
 bool Grid::HasnotReachedStg(Tetromino &tetromino)
 {
 	for(int ligne = tetromino.bsize-1;  ligne >= 0 ; ligne--)
@@ -106,7 +118,7 @@ bool Grid::CanRotate(Tetromino& tetromino)
 		for (int colonne = 0; colonne < tetromino.bsize; colonne++)
 			if (colonne + tetromino.pos.x <= 0 // check rotation in the left side
 				|| colonne + tetromino.pos.x > 10 // check rotation in the right side
-				|| underMap[ligne + tetromino.pos.y][colonne + (tetromino.pos.x-1)] != vide
+				|| underMap[ligne + tetromino.pos.y][colonne + (tetromino.pos.x-1)] != vide // check rotation against another tetromino
 				)
 				return false;
 	}
@@ -114,27 +126,37 @@ bool Grid::CanRotate(Tetromino& tetromino)
 	return true;
 }
 
-void Grid::fixe_block(Tetromino& tetromino)
+/* gestion de la ligne complète */
+void Grid::destroyLineFull()
 {
-	position pos_temp;
-	pos_temp.x = tetromino.pos.x;
-	pos_temp.y = tetromino.pos.y;
-
-	for (int ligne = 0; ligne < tetromino.bsize; ligne++)
-		for (int colonne = 0; colonne < tetromino.bsize; colonne++)
-			if (tetromino.actual_block[ligne][colonne] != nothing)
-				underMap[ligne + pos_temp.y][colonne + (pos_temp.x-1)] = tetromino.actual_block[ligne][colonne];
-}
-
-void Grid::fixe_map(Tetromino& tetromino)
-{
-	for (int ligne = 0; ligne < 21; ligne++)
+	int nb_block_col = 0;
+	for (int ligne = 0; ligne < ROW; ligne++)
 	{
-		map[ligne][0] = I;
-		map[ligne][11] = I;
+		for (int colonne = 0; colonne < COL; colonne++)
+		{
+			if (underMap[ligne][colonne] != vide)
+				nb_block_col++;
+			if (nb_block_col == 10)
+			{
+				// on clear la ligne
+				for (int colonne_temp = 0; colonne_temp < COL; colonne_temp++)
+					underMap[ligne][colonne_temp] = vide;
+
+				// puis on la déplace tout en haut en déplacant les lignes une après l'autre
+				int index = ligne;
+				while (index > 0)
+				{
+					for (int i = 0; i < COL; i++)
+						std::swap(underMap[index - 1][i], underMap[index][i]);
+					index--;
+				}
+			}
+		}
+		nb_block_col = 0;
 	}
 }
 
+/* Affichage */
 void Grid::Draw(sf::RenderWindow &window)
 {
 	sf::RectangleShape cell(sf::Vector2f(SIZECELL,SIZECELL));

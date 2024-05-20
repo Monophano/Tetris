@@ -2,19 +2,28 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <stdio.h>
+#include <utility>
 #include "tetromino.hpp"
 
 class Grid
 {
 	public:
 		Grid();
+
+		// positionnement du tetromino dans la grille
 		void Add_block_to_map(Tetromino &tetromino);
+		void fixe_block(Tetromino& tetromino);
 		void Clear_residus(Tetromino &tetromino);
+
+		// collision
 		bool HasnotReachedStg(Tetromino &tetromino);
 		bool HasnotCollidedWithStg(Tetromino &tetromino, bool touche_gauche);
 		bool CanRotate(Tetromino &tetromino);
-		void fixe_block(Tetromino &tetromino);
-		void fixe_map(Tetromino& tetromino); // il peut y avoir des tetromino à passer en dehors de la carte à cause d'un bug
+
+		// gestion de la ligne complète
+		void destroyLineFull();
+
+		// affichage
 		void Draw(sf::RenderWindow &window);
 		void DebugDraw();
 

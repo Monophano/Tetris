@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\No\u00E9\\Documents\\GitHub\\Tetris\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|C:\\Users\\No\u00E9\\Documents\\GitHub\\Tetris\\Tetris\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|solutionrelative:Tetris\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|C:\\Users\\No\u00E9\\Documents\\GitHub\\Tetris\\Tetris\\src\\grid.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|solutionrelative:Tetris\\src\\grid.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|C:\\Users\\No\u00E9\\Documents\\GitHub\\Tetris\\Tetris\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|solutionrelative:Tetris\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|C:\\Users\\No\u00E9\\Documents\\GitHub\\Tetris\\Tetris\\src\\headers\\grid.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4BAE322C-354D-4124-9B9F-5273EFA1C3DD}|Tetris\\Tetris.vcxproj|solutionrelative:Tetris\\src\\headers\\grid.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,25 +26,38 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "grid.hpp",
+              "DocumentMoniker": "C:\\Users\\No\u00E9\\Documents\\GitHub\\Tetris\\Tetris\\src\\headers\\grid.hpp",
+              "RelativeDocumentMoniker": "Tetris\\src\\headers\\grid.hpp",
+              "ToolTip": "C:\\Users\\No\u00E9\\Documents\\GitHub\\Tetris\\Tetris\\src\\headers\\grid.hpp",
+              "RelativeToolTip": "Tetris\\src\\headers\\grid.hpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-05-17T06:27:08.132Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\No\u00E9\\Documents\\GitHub\\Tetris\\Tetris\\src\\main.cpp",
               "RelativeDocumentMoniker": "Tetris\\src\\main.cpp",
               "ToolTip": "C:\\Users\\No\u00E9\\Documents\\GitHub\\Tetris\\Tetris\\src\\main.cpp",
               "RelativeToolTip": "Tetris\\src\\main.cpp",
-              "ViewState": "AQIAADMAAAAAAAAAAAAAAE0AAAAFAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-05-08T22:17:59.474Z"
+              "WhenOpened": "2024-05-08T22:17:59.474Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "grid.cpp",
               "DocumentMoniker": "C:\\Users\\No\u00E9\\Documents\\GitHub\\Tetris\\Tetris\\src\\grid.cpp",
               "RelativeDocumentMoniker": "Tetris\\src\\grid.cpp",
               "ToolTip": "C:\\Users\\No\u00E9\\Documents\\GitHub\\Tetris\\Tetris\\src\\grid.cpp",
               "RelativeToolTip": "Tetris\\src\\grid.cpp",
-              "ViewState": "AQIAAGYAAAAAAAAAAAAkwGwAAABFAAAA",
+              "ViewState": "AQIAAH0AAAAAAAAAAAAkwJQAAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-05-08T22:21:01.723Z",
               "EditorCaption": ""

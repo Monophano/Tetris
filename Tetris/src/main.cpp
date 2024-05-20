@@ -64,7 +64,7 @@ int main()
 			}
 		}
 		// update section
-		grid.fixe_map(tetromino);
+		grid.destroyLineFull();
 		sf::Time time = clock.getElapsedTime();
 		if (grid.HasnotReachedStg(tetromino) && time.asMilliseconds() > limit)
 		{
@@ -96,3 +96,45 @@ int main()
 
 	return 0;
 }
+
+/*
+#include <utility>
+#include <stdio.h>
+
+int main()
+{
+	int tab[3][2];
+	for (int i = 0; i < 3; i++)
+		for (int j = 0; j < 2; j++)
+			tab[i][j] = 0;
+
+	for (int i = 0; i < 2; i++)
+		tab[2][i] = 1;
+
+	tab[1][0] = 9;
+
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 2; j++)
+			printf("%d ", tab[i][j]);
+		printf("\n");
+	}
+	printf("\n");
+
+	int index = 2;
+	while (index > 0)
+	{
+		for (int i = 0; i < 2; i++)
+			std::swap(tab[index-1][i], tab[index][i]);
+		index--;
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 2; j++)
+			printf("%d ", tab[i][j]);
+		printf("\n");
+	}
+	return 0;
+}
+*/
