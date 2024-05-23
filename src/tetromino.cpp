@@ -66,6 +66,7 @@ Tetromino::Tetromino()
 	pos.y = 0;
 }
 
+// Mouvement
 void Tetromino::Move(bool droite)
 {
 	if (droite)
@@ -98,28 +99,102 @@ void Tetromino::Rotate()
 	}
 }
 
-
-int Tetromino::nice_bsize()
+/* Ajout d'un tetromino � la grille de jeu */
+void Tetromino::Add_block_to_map(Grid &grid)
 {
-	// get right bsize
-	int bsize_temp = 0;
-	int nice_bsize = 0;
-	for (int colonne = 0; colonne < bsize; colonne++)
-  {
-		for (int ligne = 0; ligne < bsize; ligne++)
+	for (int ligne = 0; ligne < bsize; ligne++)
+	{
+		for (int colonne = 0; colonne < bsize; colonne++)
 		{
 			if (actual_block[ligne][colonne] != nothing)
-				bsize_temp++;
+				grid.map[ligne + pos.y][colonne + pos.x] = actual_block[ligne][colonne];
 		}
-		if (bsize_temp > nice_bsize)
-		nice_bsize = bsize_temp;
-		bsize_temp = 0;
-  }
-	printf("\nnice_bsize = %d\n", nice_bsize);
-
-	return nice_bsize;
+	}
 }
 
+void Tetromino::Add_block_to_undermap(Grid &grid)
+{
+	position pos_temp;
+	pos_temp.x = pos.x;
+	pos_temp.y = pos.y;
+
+	for (int ligne = 0; ligne <bsize; ligne++)
+		for (int colonne = 0; colonne < bsize; colonne++)
+			if (actual_block[ligne][colonne] != nothing)
+				grid.underMap[ligne + pos_temp.y][colonne + (pos_temp.x - 1)] = actual_block[ligne][colonne];
+}
+
+void Tetromino::Clear_residus(Grid &grid)
+{
+	for (int ligne = 0; ligne < bsize; ligne++)
+		for (int colonne = 0; colonne < bsize; colonne++)
+			if (actual_block[ligne][colonne] != nothing)
+				grid.map[ligne + pos.y][colonne + pos.x] = nothing;
+}
+
+/* Collision */
+bool Tetromino::HasnotReachedStg(Grid &grid)
+{
+	for(int ligne = bsize-1;  ligne >= 0 ; ligne--)
+		for (int colonne = 0; colonne < bsize; colonne++)
+			if (actual_block[ligne][colonne] != nothing)
+				if (grid.underMap[pos.y + ligne + 1][(pos.x - 1) + colonne] != vide)
+					return false;
+	return true;
+}
+
+bool Tetromino::HasnotCollidedWithStg(Grid &grid, bool touche_gauche)
+{
+	if (touche_gauche)
+	{
+		// collision avec les autres tetrominos sur les c�t�s
+		for (int ligne = 0; ligne < bsize; ligne++)
+			for (int colonne = 0; colonne < bsize; colonne++)
+				if (actual_block[ligne][colonne] != nothing)
+					if (grid.underMap[pos.y + ligne][((pos.x-1) + colonne) - 1] != vide)
+						return false;
+
+		// collision avec les bords de la carte
+		for (int ligne = 0; ligne < bsize; ligne++)
+			for (int colonne = 0; colonne < bsize; colonne++)
+				if (actual_block[ligne][colonne] != nothing)
+					if (grid.map[pos.y + ligne][(pos.x + colonne) - 1] != nothing)
+						return false;
+	}
+	else
+	{
+		// collision avec les autres tetrominos sur les c�t�s
+		for (int ligne = 0; ligne < bsize; ligne++)
+			for (int colonne = bsize - 1; colonne >= 0; colonne--)
+				if (actual_block[ligne][colonne] != nothing)
+					if (grid.underMap[pos.y + ligne][((pos.x-1) + colonne) + 1] != vide)
+						return false;
+
+		// collision avec les bords de la carte
+		for (int ligne = 0; ligne < bsize; ligne++)
+			for (int colonne = bsize - 1; colonne >= 0; colonne--)
+				if (actual_block[ligne][colonne] != nothing)
+					if (grid.map[pos.y + ligne][(pos.x + colonne) + 1] != nothing)
+						return false;
+	}
+	return true;
+}
+
+bool Tetromino::CanRotate(Grid &grid)
+{
+	// verifier si un bout du tetromino est sorti de la carte
+	for (int ligne = 0; ligne < bsize; ligne++)
+	{
+		for (int colonne = 0; colonne < bsize; colonne++)
+			if (colonne + pos.x <= 0 // check rotation in the left side
+				|| colonne + pos.x > 10 // check rotation in the right side
+				|| grid.underMap[ligne + pos.y][colonne + (pos.x-1)] != vide // check rotation against another tetromino
+				)
+				return false;
+	}
+
+	return true;
+}
 
 void Tetromino::DebugDraw()
 {

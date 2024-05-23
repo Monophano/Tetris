@@ -2,23 +2,14 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <stdio.h>
-#include <utility>
-#include "tetromino.hpp"
+#include "globals.hpp"
 
 class Grid
 {
 	public:
 		Grid();
-
-		// positionnement du tetromino dans la grille
-		void Add_block_to_map(Tetromino &tetromino);
-		void Add_block_to_undermap(Tetromino& tetromino);
-		void Clear_residus(Tetromino &tetromino);
-
-		// collision
-		bool HasnotReachedStg(Tetromino &tetromino);
-		bool HasnotCollidedWithStg(Tetromino &tetromino, bool touche_gauche);
-		bool CanRotate(Tetromino &tetromino);
+		block underMap[21][10];
+		block map[21][12];
 
 		// gestion de la ligne compl�te
 		void destroyLineFull();
@@ -28,11 +19,7 @@ class Grid
 		void DebugDraw();
 
 	private:
-		block underMap[21][10];
-		block map[21][12];
 		const float SIZECELL = 30.0f;
-		const int ROW = 20;
-		const int COL = 10;
 		std::vector<sf::Color> color =
 		{
 			sf::Color(185, 230, 240), // vide

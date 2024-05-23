@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <stdio.h>
+#include "headers/tetromino.hpp"
 #include "headers/grid.hpp"
 
 #define touche_gauche true
@@ -12,8 +13,8 @@ int main()
 
 	window.setFramerateLimit(60);
 
-	Grid grid;
 	Tetromino tetromino;
+	Grid grid;
 	sf::Clock clock;
 
 	int limit = 600; // pour l'instant
@@ -37,22 +38,26 @@ int main()
 							break;
 
 						case sf::Keyboard::Right:
-							if (grid.HasnotCollidedWithStg(tetromino,touche_droite))
+							if (tetromino.HasnotCollidedWithStg(grid,touche_droite))
 								tetromino.Move(true);
 							break;
 
 						case sf::Keyboard::Left:
-							if (grid.HasnotCollidedWithStg(tetromino,touche_gauche))
+							if (tetromino.HasnotCollidedWithStg(grid,touche_gauche))
 								tetromino.Move(false);
 							break;
 
 						case sf::Keyboard::Up:
-							if (grid.CanRotate(tetromino))
+							if (tetromino.CanRotate(grid))
 								tetromino.Rotate();
 							break;
 
 						case sf::Keyboard::Down:
 							limit = 100;
+							break;
+
+						case sf::Keyboard::Space:
+							limit = 0;
 							break;
 
 						default:
@@ -64,6 +69,10 @@ int main()
 					switch (event.key.code)
 					{
 						case sf::Keyboard::Down:
+							limit = 600;
+							break;
+
+						case sf::Keyboard::Space:
 							limit = 600;
 							break;
 
@@ -79,24 +88,24 @@ int main()
 		// update section
 		grid.destroyLineFull();
 		sf::Time time = clock.getElapsedTime();
-		if (grid.HasnotReachedStg(tetromino) && time.asMilliseconds() > limit)
+		if (tetromino.HasnotReachedStg(grid) && time.asMilliseconds() > limit)
 		{
 			tetromino.Fall();
 			time = clock.restart();
 		}
 
-		if (grid.HasnotReachedStg(tetromino)) // ajoute le tetromino � la carte courante
-			grid.Add_block_to_map(tetromino);
+		if (tetromino.HasnotReachedStg(grid)) // ajoute le tetromino sur la carte courante
+			tetromino.Add_block_to_map(grid);
 		else
 		{
 			sf::Time timer_fixe = clock.getElapsedTime();
 			if (timer_fixe.asMilliseconds() >= 500)
 			{
-				grid.Add_block_to_undermap(tetromino);
+				tetromino.Add_block_to_undermap(grid);
 				tetromino = Tetromino();
 			}
 			else
-				grid.Add_block_to_map(tetromino);
+				tetromino.Add_block_to_map(grid);
 		}
 
 		// Display section
@@ -105,7 +114,7 @@ int main()
 		grid.Draw(window);
 		window.display();
 
-		grid.Clear_residus(tetromino); // supprime les r�sidus de block
+		tetromino.Clear_residus(grid); // supprime les résidus de block
 	}
 
 	return 0;

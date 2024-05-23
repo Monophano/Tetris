@@ -2,20 +2,34 @@
 #include <ctime>
 #include <stdlib.h>
 #include <stdio.h>
-#include "globals.hpp"
+#include <utility>
+#include "grid.hpp"
 
 class Tetromino
 {
 	public:
-		int bsize;
+		Tetromino();
+
+		// mouvement du tetromino
 		void Move(bool droite);
 		void Fall();
 		void Rotate();
-		int nice_bsize();
+
+		// positionnement du tetromino dans la grille
+		void Add_block_to_map(Grid &grid);
+		void Add_block_to_undermap(Grid &grid);
+		void Clear_residus(Grid &grid);
+
+		// collision
+		bool HasnotReachedStg(Grid &grid);
+		bool HasnotCollidedWithStg(Grid &grid, bool touche_gauche);
+		bool CanRotate(Grid &grid);
+
+
+		int bsize;
 		void DebugDraw();
 		block actual_block[4][4];
 		position pos;
-		Tetromino();
 
 	private:
 		block BlockI[4][4] = {

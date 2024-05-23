@@ -1,5 +1,8 @@
 #pragma once
 
+const int ROW = 20;
+const int COL = 10;
+
 enum block
 {
 	I = 1,
