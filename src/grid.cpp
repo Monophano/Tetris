@@ -12,24 +12,15 @@ Grid::Grid()
 
 	for (int colonne = 0; colonne < COL; colonne++) // Initialise Laste Row with a complete line to simplify colision detection on last line
 		underMap[20][colonne] = I;
-	
+
 	for (int ligne = 0; ligne < 21; ligne++)
 	{
 		map[ligne][0] = I;
 		map[ligne][11] = I;
 	}
-
-	for (int ligne = 0; ligne < 21; ligne++)
-	{
-		for (int colonne = 0; colonne < COL; colonne++)
-		{
-			printf("%d ", map[ligne][colonne]);
-		}
-		printf("\n");
-	}
 }
 
-/* Ajout d'un tetromino à la grille de jeu */
+/* Ajout d'un tetromino ï¿½ la grille de jeu */
 void Grid::Add_block_to_map(Tetromino &tetromino)
 {
 	for (int ligne = 0; ligne < tetromino.bsize; ligne++)
@@ -42,7 +33,7 @@ void Grid::Add_block_to_map(Tetromino &tetromino)
 	}
 }
 
-void Grid::fixe_block(Tetromino& tetromino)
+void Grid::Add_block_to_undermap(Tetromino& tetromino)
 {
 	position pos_temp;
 	pos_temp.x = tetromino.pos.x;
@@ -77,7 +68,7 @@ bool Grid::HasnotCollidedWithStg(Tetromino &tetromino, bool touche_gauche)
 {
 	if (touche_gauche)
 	{
-		// collision avec les autres tetrominos sur les côtés
+		// collision avec les autres tetrominos sur les cï¿½tï¿½s
 		for (int ligne = 0; ligne < tetromino.bsize; ligne++)
 			for (int colonne = 0; colonne < tetromino.bsize; colonne++)
 				if (tetromino.actual_block[ligne][colonne] != nothing)
@@ -93,7 +84,7 @@ bool Grid::HasnotCollidedWithStg(Tetromino &tetromino, bool touche_gauche)
 	}
 	else
 	{
-		// collision avec les autres tetrominos sur les côtés
+		// collision avec les autres tetrominos sur les cï¿½tï¿½s
 		for (int ligne = 0; ligne < tetromino.bsize; ligne++)
 			for (int colonne = tetromino.bsize - 1; colonne >= 0; colonne--)
 				if (tetromino.actual_block[ligne][colonne] != nothing)
@@ -126,7 +117,7 @@ bool Grid::CanRotate(Tetromino& tetromino)
 	return true;
 }
 
-/* gestion de la ligne complète */
+/* gestion de la ligne complï¿½te */
 void Grid::destroyLineFull()
 {
 	int nb_block_col = 0;
@@ -142,7 +133,7 @@ void Grid::destroyLineFull()
 				for (int colonne_temp = 0; colonne_temp < COL; colonne_temp++)
 					underMap[ligne][colonne_temp] = vide;
 
-				// puis on la déplace tout en haut en déplacant les lignes une après l'autre
+				// puis on la dï¿½place tout en haut en dï¿½placant les lignes une aprï¿½s l'autre
 				int index = ligne;
 				while (index > 0)
 				{

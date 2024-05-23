@@ -4,8 +4,7 @@ Tetromino::Tetromino()
 {
 	srand(time(nullptr));
 	block numblock = (block)((int)(rand()%7+1));
-	//numblock = L;
-	printf("Le block choisis est %d\n", numblock);
+	//printf("Le block choisis est %d\n", numblock);
 	switch (numblock)
 	{
 		case I:
@@ -90,7 +89,7 @@ void Tetromino::Rotate()
 			temp[i][j] = actual_block[bsize - j - 1][i];
 		}
 	}
-	
+
 	// copier la liste temp dans actual_block
 	for (int i = 0; i < bsize; ++i) {
 		for (int j = 0; j < bsize; ++j) {
@@ -115,9 +114,9 @@ int Tetromino::nice_bsize()
 		if (bsize_temp > nice_bsize)
 		nice_bsize = bsize_temp;
 		bsize_temp = 0;
-  }	
+  }
 	printf("\nnice_bsize = %d\n", nice_bsize);
-	
+
 	return nice_bsize;
 }
 

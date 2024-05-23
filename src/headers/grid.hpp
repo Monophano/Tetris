@@ -12,7 +12,7 @@ class Grid
 
 		// positionnement du tetromino dans la grille
 		void Add_block_to_map(Tetromino &tetromino);
-		void fixe_block(Tetromino& tetromino);
+		void Add_block_to_undermap(Tetromino& tetromino);
 		void Clear_residus(Tetromino &tetromino);
 
 		// collision
@@ -20,7 +20,7 @@ class Grid
 		bool HasnotCollidedWithStg(Tetromino &tetromino, bool touche_gauche);
 		bool CanRotate(Tetromino &tetromino);
 
-		// gestion de la ligne complète
+		// gestion de la ligne complï¿½te
 		void destroyLineFull();
 
 		// affichage
