@@ -4,7 +4,6 @@ Tetromino::Tetromino()
 {
 	srand(time(nullptr));
 	block numblock = (block)((int)(rand()%7+1));
-	//printf("Le block choisis est %d\n", numblock);
 	switch (numblock)
 	{
 		case I:
@@ -78,6 +77,11 @@ void Tetromino::Move(bool droite)
 void Tetromino::Fall()
 {
 	pos.y++;
+}
+
+void Tetromino::HardDrop()
+{
+	printf("Hard Drop\n");
 }
 
 void Tetromino::Rotate()
@@ -188,14 +192,27 @@ bool Tetromino::CanRotate(Grid &grid)
 		for (int colonne = 0; colonne < bsize; colonne++)
 			if (colonne + pos.x <= 0 // check rotation in the left side
 				|| colonne + pos.x > 10 // check rotation in the right side
-				|| grid.underMap[ligne + pos.y][colonne + (pos.x-1)] != vide // check rotation against another tetromino
-				)
+				|| grid.underMap[ligne + pos.y][colonne + (pos.x-1)] != vide) // check rotation against another tetromino
 				return false;
 	}
 
 	return true;
 }
 
+// Fin de jeu ?
+bool Tetromino::SpawnInAnOtherTetro(Grid& grid)
+{
+	for (int ligne = 0; ligne < bsize; ligne++)
+		for (int colonne = 0; colonne < bsize; colonne++)
+			if (pos.y == 0)
+				if (actual_block[ligne][colonne] != nothing)
+					if (grid.underMap[ligne + pos.y][colonne + (pos.x - 1)] != vide)
+						return true;
+
+	return false;
+}
+
+// Debug
 void Tetromino::DebugDraw()
 {
 	for (int ligne = 0; ligne < bsize; ligne++)

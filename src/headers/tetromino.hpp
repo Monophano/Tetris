@@ -13,6 +13,7 @@ class Tetromino
 		// mouvement du tetromino
 		void Move(bool droite);
 		void Fall();
+		void HardDrop();
 		void Rotate();
 
 		// positionnement du tetromino dans la grille
@@ -25,13 +26,17 @@ class Tetromino
 		bool HasnotCollidedWithStg(Grid &grid, bool touche_gauche);
 		bool CanRotate(Grid &grid);
 
+		// Fin de jeu ?
+		bool SpawnInAnOtherTetro(Grid &grid);
 
-		int bsize;
+		// Debug
 		void DebugDraw();
-		block actual_block[4][4];
-		position pos;
 
 	private:
+		block actual_block[4][4];
+		position pos;
+		int bsize;
+
 		block BlockI[4][4] = {
 			{nothing,I,nothing,nothing},
 			{nothing,I,nothing,nothing},

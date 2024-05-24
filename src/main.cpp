@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "headers/tetromino.hpp"
 #include "headers/grid.hpp"
+#include "headers/game.hpp"
 
 #define touche_gauche true
 #define touche_droite false
@@ -15,8 +16,11 @@ int main()
 
 	Tetromino tetromino;
 	Grid grid;
+	Game game;
 	sf::Clock clock;
 
+	// initialisation du jeu
+	tetromino.Add_block_to_map(grid);
 	int limit = 600; // pour l'instant
 
 	while (window.isOpen())
@@ -31,54 +35,54 @@ int main()
 					break;
 
 				case sf::Event::KeyPressed:
-					switch (event.key.code)
-					{
-						case sf::Keyboard::Escape:
-							window.close();
-							break;
+					// fermeture rapide du jeu
+					if (event.key.code == sf::Keyboard::Escape)
+						window.close();
 
-						case sf::Keyboard::Right:
-							if (tetromino.HasnotCollidedWithStg(grid,touche_droite))
-								tetromino.Move(true);
-							break;
+					// Contrôle du jeu pendant la partis
+					if (!tetromino.SpawnInAnOtherTetro(grid))
+						switch (event.key.code)
+						{
+							case sf::Keyboard::Right:
+								if (tetromino.HasnotCollidedWithStg(grid,touche_droite))
+									tetromino.Move(true);
+								break;
 
-						case sf::Keyboard::Left:
-							if (tetromino.HasnotCollidedWithStg(grid,touche_gauche))
-								tetromino.Move(false);
-							break;
+							case sf::Keyboard::Left:
+								if (tetromino.HasnotCollidedWithStg(grid,touche_gauche))
+									tetromino.Move(false);
+								break;
 
-						case sf::Keyboard::Up:
-							if (tetromino.CanRotate(grid))
-								tetromino.Rotate();
-							break;
+							case sf::Keyboard::Up:
+								if (tetromino.CanRotate(grid))
+									tetromino.Rotate();
+								break;
 
-						case sf::Keyboard::Down:
-							limit = 100;
-							break;
+							case sf::Keyboard::Down:
+								limit = 50;
+								break;
 
-						case sf::Keyboard::Space:
-							limit = 0;
-							break;
+							case sf::Keyboard::Space:
+								tetromino.HardDrop();
+								break;
 
-						default:
-							break;
-					}
+							default:
+								break;
+						}
 					break;
 
 				case sf::Event::KeyReleased:
-					switch (event.key.code)
-					{
-						case sf::Keyboard::Down:
-							limit = 600;
-							break;
+					// contrôle du jeu pendant la parti
+					if (!tetromino.SpawnInAnOtherTetro(grid))
+						switch (event.key.code)
+						{
+							case sf::Keyboard::Down:
+								limit = 600;
+								break;
 
-						case sf::Keyboard::Space:
-							limit = 600;
-							break;
-
-						default:
-							break;
-					}
+							default:
+								break;
+						}
 					break;
 
 				default:
@@ -86,35 +90,41 @@ int main()
 			}
 		}
 		// update section
-		grid.destroyLineFull();
-		sf::Time time = clock.getElapsedTime();
-		if (tetromino.HasnotReachedStg(grid) && time.asMilliseconds() > limit)
+		if (!tetromino.SpawnInAnOtherTetro(grid)) // vérifie si le jeu est en état de game over
 		{
-			tetromino.Fall();
-			time = clock.restart();
-		}
-
-		if (tetromino.HasnotReachedStg(grid)) // ajoute le tetromino sur la carte courante
-			tetromino.Add_block_to_map(grid);
-		else
-		{
-			sf::Time timer_fixe = clock.getElapsedTime();
-			if (timer_fixe.asMilliseconds() >= 500)
+			grid.destroyLineFull();
+			sf::Time time = clock.getElapsedTime();
+			if (tetromino.HasnotReachedStg(grid) && time.asMilliseconds() > limit)
 			{
-				tetromino.Add_block_to_undermap(grid);
-				tetromino = Tetromino();
+				tetromino.Fall();
+				time = clock.restart();
 			}
-			else
+
+			if (tetromino.HasnotReachedStg(grid)) // ajoute le tetromino sur la carte courante
 				tetromino.Add_block_to_map(grid);
+			else
+			{
+				sf::Time timer_fixe = clock.getElapsedTime();
+				if (timer_fixe.asMilliseconds() >= 500)
+				{
+					tetromino.Add_block_to_undermap(grid);
+					tetromino = Tetromino();
+					tetromino.Add_block_to_map(grid);
+				}
+				else
+					tetromino.Add_block_to_map(grid);
+			}
 		}
 
 		// Display section
 		window.clear();
-		//tetromino.DebugDraw();
 		grid.Draw(window);
+		if (tetromino.SpawnInAnOtherTetro(grid))
+			game.Game_Over(window);
 		window.display();
 
-		tetromino.Clear_residus(grid); // supprime les résidus de block
+		if (!tetromino.SpawnInAnOtherTetro(grid))
+			tetromino.Clear_residus(grid); // supprime les résidus de block
 	}
 
 	return 0;
