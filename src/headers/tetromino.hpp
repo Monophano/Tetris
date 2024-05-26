@@ -13,7 +13,7 @@ class Tetromino
 		// mouvement du tetromino
 		void Move(bool droite);
 		void Fall();
-		void HardDrop();
+		void HardDrop(Grid &grid);
 		void Rotate();
 
 		// positionnement du tetromino dans la grille

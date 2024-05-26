@@ -79,9 +79,20 @@ void Tetromino::Fall()
 	pos.y++;
 }
 
-void Tetromino::HardDrop()
+void Tetromino::HardDrop(Grid &grid)
 {
-	printf("Hard Drop\n");
+	// descendre tant que le tetromino ne touche pas le sol
+	bool continuer = true;
+	while (continuer)
+	{
+		if (HasnotReachedStg(grid))
+			pos.y++;
+		else
+		{
+			Add_block_to_undermap(grid);
+			continuer = false;
+		}
+	}
 }
 
 void Tetromino::Rotate()
