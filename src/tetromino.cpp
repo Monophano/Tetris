@@ -61,6 +61,9 @@ Tetromino::Tetromino()
 					actual_block[i][j] = BlockS[i][j];
 			pos.x = 4;
 			break;
+
+		default:
+			break;
 	}
 	pos.y = 0;
 }

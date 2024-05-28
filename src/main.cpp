@@ -63,11 +63,7 @@ int main()
 								break;
 
 							case sf::Keyboard::Space:
-								//printf("Etat initial\n");
-								//grid.DebugDraw();
 								tetromino.HardDrop(grid);
-								//printf("Après Hard drop\n");
-								//grid.DebugDraw();
 								tetromino = Tetromino();
 								break;
 
