@@ -11,7 +11,7 @@ class Grid
 		block underMap[21][10];
 		block map[21][12];
 
-		// gestion de la ligne compl�te
+		// gestion de la ligne complète
 		void destroyLineFull();
 
 		// affichage
@@ -22,7 +22,6 @@ class Grid
 		const float SIZECELL = 30.0f;
 		std::vector<sf::Color> color =
 		{
-			sf::Color(185, 230, 240), // vide
 			sf::Color(5, 201, 245), // cyan
 			sf::Color(255,255,0), // yellow
 			sf::Color::Magenta,
@@ -30,6 +29,7 @@ class Grid
 			sf::Color(23,0,255), // blue
 			sf::Color(255,0,0), // red
 			sf::Color(37, 250, 5), // green
+			sf::Color(185, 230, 240), // vide
 			sf::Color::Transparent
 		};
 };
