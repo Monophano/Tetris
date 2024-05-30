@@ -1,9 +1,7 @@
 #include "headers/tetromino.hpp"
 
-Tetromino::Tetromino()
+Tetromino::Tetromino(block numblock)
 {
-	srand(time(nullptr));
-	block numblock = (block)((int)(rand()%7+1));
 	switch (numblock)
 	{
 		case I:

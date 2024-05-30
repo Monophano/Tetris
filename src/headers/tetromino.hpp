@@ -8,7 +8,7 @@
 class Tetromino
 {
 	public:
-		Tetromino();
+		Tetromino(block numblock);
 
 		// mouvement du tetromino
 		void Move(bool droite);
