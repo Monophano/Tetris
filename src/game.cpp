@@ -38,7 +38,19 @@ void Game::DrawBarreLateral(sf::RenderWindow &window)
     background.setPosition(sf::Vector2f(300,0));
     window.draw(background);
     */
+    Draw_Score(window);
     Draw_Next_Tetro(window);
+}
+
+void Game::Draw_Score(sf::RenderWindow &window)
+{
+    sf::Font score_font;
+    score_font.loadFromFile("./res/font/LiberationSans-Regular.ttf");
+
+    sf::Text txt_score("Score : "+(std::to_string)(score), score_font, 30);
+    txt_score.setPosition(sf::Vector2f(375.0f, 275.0f));
+
+    window.draw(txt_score);
 }
 
 void Game::Draw_Next_Tetro(sf::RenderWindow &window)
