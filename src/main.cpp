@@ -70,6 +70,7 @@ int main()
 								tetromino.HardDrop(grid); // descend tout en bas jusqu'à collisionner
 								tetromino = Tetromino(game.next_tetro);
 								game.Get_Next_Tetro();
+								game.score += 10; // ajouter dix points quand un block est posé
 								break;
 
 							default:
@@ -116,6 +117,7 @@ int main()
 					tetromino.Add_block_to_undermap(grid);
 					tetromino = Tetromino(game.next_tetro);
 					game.Get_Next_Tetro();
+					game.score += 10; // ajouter dix points quand un block est posé
 				}
 				else
 					tetromino.Add_block_to_map(grid);
