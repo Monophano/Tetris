@@ -50,6 +50,27 @@ void Grid::destroyLineFull()
 	}
 }
 
+int Grid::nb_line_full()
+{
+	int nb_block_col = 0;
+	int nb_line_full = 0; // compteur de ligne complète qui va attribuer les points en fonction de la quantité
+	for (int ligne = 0; ligne < ROW; ligne++)
+	{
+		for (int colonne = 0; colonne < COL; colonne++)
+		{
+			if (underMap[ligne][colonne] != vide)
+				nb_block_col++;
+			if (nb_block_col == 10)
+			{
+				nb_line_full++;
+			}
+		}
+		nb_block_col = 0;
+	}
+
+	return nb_line_full;
+}
+
 /* Affichage */
 void Grid::Draw(sf::RenderWindow &window)
 {

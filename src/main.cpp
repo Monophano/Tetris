@@ -9,14 +9,18 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(300,600), "Tetris");
+	sf::RenderWindow window(sf::VideoMode(600,600), "Tetris");
 	sf::Event event;
 
 	window.setFramerateLimit(60);
 
-	Tetromino tetromino;
-	Grid grid;
+	// Initialisation du premier tetromino
 	Game game;
+	game.Get_Next_Tetro(); // premier tetro du jeu
+	Tetromino tetromino(game.next_tetro);
+	game.Get_Next_Tetro(); // prochain tetro à arriver
+
+	Grid grid;
 	sf::Clock clock;
 
 	// initialisation du jeu
@@ -63,8 +67,10 @@ int main()
 								break;
 
 							case sf::Keyboard::Space:
-								tetromino.HardDrop(grid);
-								tetromino = Tetromino();
+								tetromino.HardDrop(grid); // descend tout en bas jusqu'à collisionner
+								tetromino = Tetromino(game.next_tetro);
+								game.Get_Next_Tetro();
+								game.score += 10; // ajouter dix points quand un block est posé
 								break;
 
 							default:
@@ -93,6 +99,29 @@ int main()
 		// update section
 		if (!tetromino.SpawnInAnOtherTetro(grid)) // vérifie si le jeu est en état de game over
 		{
+			// Vérifie l'obtention de point
+			switch (grid.nb_line_full())
+			{
+				case 1:
+					game.score += 20;
+					break;
+
+				case 2:
+					game.score += 20;
+					break;
+
+				case 3:
+					game.score += 50;
+					break;
+
+				case 4:
+					game.score += 100;
+					break;
+
+				default:
+					break;
+			}
+
 			grid.destroyLineFull();
 			sf::Time time = clock.getElapsedTime();
 			if (tetromino.HasnotReachedStg(grid) && time.asMilliseconds() > limit)
@@ -109,8 +138,9 @@ int main()
 				if (timer_fixe.asMilliseconds() >= 500)
 				{
 					tetromino.Add_block_to_undermap(grid);
-					tetromino = Tetromino();
-					tetromino.Add_block_to_map(grid);
+					tetromino = Tetromino(game.next_tetro);
+					game.Get_Next_Tetro();
+					game.score += 10; // ajouter dix points quand un block est posé
 				}
 				else
 					tetromino.Add_block_to_map(grid);
@@ -120,6 +150,8 @@ int main()
 		// Display section
 		window.clear();
 		grid.Draw(window);
+		game.DrawBarreLateral(window);
+
 		if (tetromino.SpawnInAnOtherTetro(grid))
 			game.Game_Over(window);
 		window.display();

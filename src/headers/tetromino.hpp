@@ -8,7 +8,7 @@
 class Tetromino
 {
 	public:
-		Tetromino();
+		Tetromino(block numblock);
 
 		// mouvement du tetromino
 		void Move(bool droite);
@@ -50,9 +50,9 @@ class Tetromino
 		};
 
 		block BlockT[3][3] = {
-			{T,T,T},
+			{nothing,nothing,nothing},
 			{nothing,T,nothing},
-			{nothing,nothing,nothing}
+			{T,T,T}
 		};
 
 		block BlockL[3][3] = {
@@ -62,8 +62,8 @@ class Tetromino
 		};
 
 		block BlockJ[3][3] = {
+			{J,nothing,nothing},
 			{J,J,J},
-			{nothing,nothing,J},
 			{nothing,nothing,nothing}
 		};
 
