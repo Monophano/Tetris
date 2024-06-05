@@ -8,6 +8,63 @@ void Game::Get_Next_Tetro()
     next_tetro = (block)((int)(rand()%7));
 }
 
+void Game::Attribute_score_and_level(Grid &grid)
+{
+    // compte le nombre de ligne à détruire
+    int nb_block_col = 0;
+    int nb_line_full = 0;
+	for (int ligne = 0; ligne < ROW; ligne++)
+	{
+		for (int colonne = 0; colonne < COL; colonne++)
+		{
+			if (grid.underMap[ligne][colonne] != vide)
+				nb_block_col++;
+			if (nb_block_col == 10)
+			{
+                nb_line_full++;
+			}
+		}
+		nb_block_col = 0;
+	}
+
+    // attribution du score
+    switch (nb_line_full)
+    {
+        case 1:
+            score += 20;
+            break;
+
+        case 2:
+            score += 20;
+            break;
+
+        case 3:
+            score += 50;
+            break;
+
+        case 4:
+            score += 100;
+            break;
+
+        default:
+            break;
+    }
+
+    // attribution du niveau et donc de la vitesse de jeu
+    if (score_next_level <= score)
+    {
+        level += 1;
+        limit -= 50;
+        score_next_level += 200;
+    }
+}
+
+/*
+void Game::Attribute_Level()
+{
+}
+*/
+
 // Affichage du jeu
 void Game::Game_Over(sf::RenderWindow &window)
 {
@@ -38,19 +95,9 @@ void Game::DrawBarreLateral(sf::RenderWindow &window)
     background.setPosition(sf::Vector2f(300,0));
     window.draw(background);
     */
-    Draw_Score(window);
     Draw_Next_Tetro(window);
-}
-
-void Game::Draw_Score(sf::RenderWindow &window)
-{
-    sf::Font score_font;
-    score_font.loadFromFile("./res/font/LiberationSans-Regular.ttf");
-
-    sf::Text txt_score("Score : "+(std::to_string)(score), score_font, 30);
-    txt_score.setPosition(sf::Vector2f(375.0f, 275.0f));
-
-    window.draw(txt_score);
+    Draw_Score(window);
+    Draw_Level(window);
 }
 
 void Game::Draw_Next_Tetro(sf::RenderWindow &window)
@@ -74,4 +121,26 @@ void Game::Draw_Next_Tetro(sf::RenderWindow &window)
 
     window.draw(rect);
     window.draw(sprite);
+}
+
+void Game::Draw_Score(sf::RenderWindow &window)
+{
+    sf::Font score_font;
+    score_font.loadFromFile("./res/font/LiberationSans-Regular.ttf");
+
+    sf::Text txt_score("Score : "+(std::to_string)(score), score_font, 30);
+    txt_score.setPosition(sf::Vector2f(375.0f, 275.0f));
+
+    window.draw(txt_score);
+}
+
+void Game::Draw_Level(sf::RenderWindow &window)
+{
+    sf::Font level_font;
+    level_font.loadFromFile("./res/font/LiberationSans-Regular.ttf");
+
+    sf::Text txt_level("Level : "+(std::to_string)(level), level_font, 30);
+    txt_level.setPosition(sf::Vector2f(375.0f, 305.0f));
+
+    window.draw(txt_level);
 }
