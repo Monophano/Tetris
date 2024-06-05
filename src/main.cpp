@@ -25,7 +25,7 @@ int main()
 
 	// initialisation du jeu
 	tetromino.Add_block_to_map(grid);
-	int limit = 600; // pour l'instant
+	bool touche_bas_presse = false;
 
 	while (window.isOpen())
 	{
@@ -63,7 +63,10 @@ int main()
 								break;
 
 							case sf::Keyboard::Down:
-								limit = 50;
+								if (touche_bas_presse == false)
+									game.limit_tempon = game.limit;
+								game.limit = 30;
+								touche_bas_presse = true;
 								break;
 
 							case sf::Keyboard::Space:
@@ -84,7 +87,8 @@ int main()
 						switch (event.key.code)
 						{
 							case sf::Keyboard::Down:
-								limit = 600;
+								game.limit = game.limit_tempon;
+								touche_bas_presse = false;
 								break;
 
 							default:
@@ -99,32 +103,10 @@ int main()
 		// update section
 		if (!tetromino.SpawnInAnOtherTetro(grid)) // vérifie si le jeu est en état de game over
 		{
-			// Vérifie l'obtention de point
-			switch (grid.nb_line_full())
-			{
-				case 1:
-					game.score += 20;
-					break;
-
-				case 2:
-					game.score += 20;
-					break;
-
-				case 3:
-					game.score += 50;
-					break;
-
-				case 4:
-					game.score += 100;
-					break;
-
-				default:
-					break;
-			}
-
+			game.Attribute_score_and_level(grid);
 			grid.destroyLineFull();
 			sf::Time time = clock.getElapsedTime();
-			if (tetromino.HasnotReachedStg(grid) && time.asMilliseconds() > limit)
+			if (tetromino.HasnotReachedStg(grid) && time.asMilliseconds() > game.limit)
 			{
 				tetromino.Fall();
 				time = clock.restart();
@@ -141,6 +123,8 @@ int main()
 					tetromino = Tetromino(game.next_tetro);
 					game.Get_Next_Tetro();
 					game.score += 10; // ajouter dix points quand un block est posé
+					//printf("La vitesse actuelle est de : %d\n", game.limit);
+    				//printf("Le score à atteindre pour le prochain niveau est : %d\n", game.score_next_level);
 				}
 				else
 					tetromino.Add_block_to_map(grid);

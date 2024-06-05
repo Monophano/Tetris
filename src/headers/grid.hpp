@@ -12,10 +12,6 @@ class Grid
 		block underMap[21][10];
 		block map[21][12];
 
-		/// @brief Compte les lignes complètes
-		/// @return nb_ligne_complete : int
-		int nb_line_full();
-
 		// gestion de la ligne complète
 		void destroyLineFull();
 
