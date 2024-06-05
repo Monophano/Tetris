@@ -2,7 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <stdio.h>
-#include "game.hpp"
 #include "globals.hpp"
 
 class Grid

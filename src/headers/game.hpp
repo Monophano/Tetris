@@ -1,9 +1,9 @@
 #pragma once
+#include "grid.hpp"
+#include "globals.hpp"
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
-#include "grid.hpp"
-#include "globals.hpp"
 
 class Game
 {

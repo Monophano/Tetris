@@ -1,8 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <stdio.h>
+#include "headers/game.hpp"
 #include "headers/tetromino.hpp"
 #include "headers/grid.hpp"
-#include "headers/game.hpp"
 
 #define touche_gauche true
 #define touche_droite false
@@ -14,14 +14,13 @@ int main()
 
 	window.setFramerateLimit(60);
 
-	// Initialisation du premier tetromino
+	// Initialisation du jeu
+	Grid grid;
+	sf::Clock clock;
 	Game game;
 	game.Get_Next_Tetro(); // premier tetro du jeu
 	Tetromino tetromino(game.next_tetro);
 	game.Get_Next_Tetro(); // prochain tetro à arriver
-
-	Grid grid;
-	sf::Clock clock;
 
 	// initialisation du jeu
 	tetromino.Add_block_to_map(grid);
