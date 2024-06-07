@@ -15,6 +15,7 @@ class Game
         int score = 0;
         int limit = 600; // par défaut
         int limit_tempon = limit;
+        bool pause = false;
 
         // Affichage du jeu
         void Game_Over(sf::RenderWindow &window);

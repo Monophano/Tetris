@@ -40,10 +40,21 @@ int main()
 				case sf::Event::KeyPressed:
 					// fermeture rapide du jeu
 					if (event.key.code == sf::Keyboard::Escape)
-						window.close();
+					{
+						switch (game.pause)
+						{
+							case true:
+								game.pause = false;
+								break;
+
+							case false:
+								game.pause = true;
+								break;
+						}
+					}
 
 					// Contrôle du jeu pendant la partis
-					if (!tetromino.SpawnInAnOtherTetro(grid))
+					if (!tetromino.SpawnInAnOtherTetro(grid) && !game.pause)
 						switch (event.key.code)
 						{
 							case sf::Keyboard::Right:
@@ -82,7 +93,7 @@ int main()
 
 				case sf::Event::KeyReleased:
 					// contrôle du jeu pendant la parti
-					if (!tetromino.SpawnInAnOtherTetro(grid))
+					if (!tetromino.SpawnInAnOtherTetro(grid) && !game.pause)
 						switch (event.key.code)
 						{
 							case sf::Keyboard::Down:
@@ -100,7 +111,7 @@ int main()
 			}
 		}
 		// update section
-		if (!tetromino.SpawnInAnOtherTetro(grid)) // vérifie si le jeu est en état de game over
+		if (!game.pause && !tetromino.SpawnInAnOtherTetro(grid)) // vérifie si le jeu est en état de game over
 		{
 			game.Attribute_score_and_level(grid);
 			grid.destroyLineFull();
@@ -122,8 +133,6 @@ int main()
 					tetromino = Tetromino(game.next_tetro);
 					game.Get_Next_Tetro();
 					game.score += 10; // ajouter dix points quand un block est posé
-					//printf("La vitesse actuelle est de : %d\n", game.limit);
-    				//printf("Le score à atteindre pour le prochain niveau est : %d\n", game.score_next_level);
 				}
 				else
 					tetromino.Add_block_to_map(grid);
@@ -134,13 +143,19 @@ int main()
 		window.clear();
 		grid.Draw(window);
 		game.DrawBarreLateral(window);
-
+		if (!game.pause && !tetromino.SpawnInAnOtherTetro(grid))
+			printf("Pause : %s\n", game.pause?"true":"false");
 		if (tetromino.SpawnInAnOtherTetro(grid))
 			game.Game_Over(window);
 		window.display();
 
-		if (!tetromino.SpawnInAnOtherTetro(grid))
-			tetromino.Clear_residus(grid); // supprime les résidus de block
+		if (!tetromino.SpawnInAnOtherTetro(grid) && !game.pause) // supprime les résidus de block
+			tetromino.Clear_residus(grid);
+		else
+		{
+			tetromino.Clear_residus(grid);
+			tetromino.Add_block_to_map(grid);
+		}
 	}
 
 	return 0;

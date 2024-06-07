@@ -59,12 +59,6 @@ void Game::Attribute_score_and_level(Grid &grid)
     }
 }
 
-/*
-void Game::Attribute_Level()
-{
-}
-*/
-
 // Affichage du jeu
 void Game::Game_Over(sf::RenderWindow &window)
 {
