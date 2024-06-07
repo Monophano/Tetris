@@ -1,8 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <stdio.h>
+#include "headers/game.hpp"
 #include "headers/tetromino.hpp"
 #include "headers/grid.hpp"
-#include "headers/game.hpp"
 
 #define touche_gauche true
 #define touche_droite false
@@ -14,18 +14,17 @@ int main()
 
 	window.setFramerateLimit(60);
 
-	// Initialisation du premier tetromino
+	// Initialisation du jeu
+	Grid grid;
+	sf::Clock clock;
 	Game game;
 	game.Get_Next_Tetro(); // premier tetro du jeu
 	Tetromino tetromino(game.next_tetro);
 	game.Get_Next_Tetro(); // prochain tetro à arriver
 
-	Grid grid;
-	sf::Clock clock;
-
 	// initialisation du jeu
 	tetromino.Add_block_to_map(grid);
-	int limit = 600; // pour l'instant
+	bool touche_bas_presse = false;
 
 	while (window.isOpen())
 	{
@@ -41,10 +40,21 @@ int main()
 				case sf::Event::KeyPressed:
 					// fermeture rapide du jeu
 					if (event.key.code == sf::Keyboard::Escape)
-						window.close();
+					{
+						switch (game.pause)
+						{
+							case true:
+								game.pause = false;
+								break;
+
+							case false:
+								game.pause = true;
+								break;
+						}
+					}
 
 					// Contrôle du jeu pendant la partis
-					if (!tetromino.SpawnInAnOtherTetro(grid))
+					if (!tetromino.SpawnInAnOtherTetro(grid) && !game.pause)
 						switch (event.key.code)
 						{
 							case sf::Keyboard::Right:
@@ -63,7 +73,10 @@ int main()
 								break;
 
 							case sf::Keyboard::Down:
-								limit = 50;
+								if (touche_bas_presse == false)
+									game.limit_tempon = game.limit;
+								game.limit = 30;
+								touche_bas_presse = true;
 								break;
 
 							case sf::Keyboard::Space:
@@ -80,11 +93,12 @@ int main()
 
 				case sf::Event::KeyReleased:
 					// contrôle du jeu pendant la parti
-					if (!tetromino.SpawnInAnOtherTetro(grid))
+					if (!tetromino.SpawnInAnOtherTetro(grid) && !game.pause)
 						switch (event.key.code)
 						{
 							case sf::Keyboard::Down:
-								limit = 600;
+								game.limit = game.limit_tempon;
+								touche_bas_presse = false;
 								break;
 
 							default:
@@ -97,11 +111,12 @@ int main()
 			}
 		}
 		// update section
-		if (!tetromino.SpawnInAnOtherTetro(grid)) // vérifie si le jeu est en état de game over
+		if (!game.pause && !tetromino.SpawnInAnOtherTetro(grid)) // vérifie si le jeu est en état de game over
 		{
+			game.Attribute_score_and_level(grid);
 			grid.destroyLineFull();
 			sf::Time time = clock.getElapsedTime();
-			if (tetromino.HasnotReachedStg(grid) && time.asMilliseconds() > limit)
+			if (tetromino.HasnotReachedStg(grid) && time.asMilliseconds() > game.limit)
 			{
 				tetromino.Fall();
 				time = clock.restart();
@@ -128,13 +143,19 @@ int main()
 		window.clear();
 		grid.Draw(window);
 		game.DrawBarreLateral(window);
-
+		if (!game.pause && !tetromino.SpawnInAnOtherTetro(grid))
+			printf("Pause : %s\n", game.pause?"true":"false");
 		if (tetromino.SpawnInAnOtherTetro(grid))
 			game.Game_Over(window);
 		window.display();
 
-		if (!tetromino.SpawnInAnOtherTetro(grid))
-			tetromino.Clear_residus(grid); // supprime les résidus de block
+		if (!tetromino.SpawnInAnOtherTetro(grid) && !game.pause) // supprime les résidus de block
+			tetromino.Clear_residus(grid);
+		else
+		{
+			tetromino.Clear_residus(grid);
+			tetromino.Add_block_to_map(grid);
+		}
 	}
 
 	return 0;
