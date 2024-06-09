@@ -15,11 +15,13 @@ class Game
         int score = 0;
         int limit = 600; // par défaut
         int limit_tempon = limit;
-        bool pause = false;
+        bool stop = false;
 
         // Affichage du jeu
         void Game_Over(sf::RenderWindow &window);
-        void DrawBarreLateral(sf::RenderWindow &window);
+        void DrawHUD(sf::RenderWindow &window);
+        void Pause(sf::RenderWindow &window);
+        void Draw_Pause_Btn(sf::RenderWindow &window);
 
     private:
         int score_next_level = score + 200;

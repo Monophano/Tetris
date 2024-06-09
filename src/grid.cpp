@@ -20,7 +20,7 @@ Grid::Grid()
 	}
 }
 
-/* gestion de la ligne compl�te */
+/* gestion des grilles */
 void Grid::destroyLineFull()
 {
 	int nb_block_col = 0;
@@ -47,6 +47,40 @@ void Grid::destroyLineFull()
 			}
 		}
 		nb_block_col = 0;
+	}
+}
+
+int Grid::NbLineFull()
+{
+	// compte le nombre de ligne à détruire
+    int nb_block_col = 0;
+    int nb_line_full = 0;
+	for (int ligne = 0; ligne < ROW; ligne++)
+	{
+		for (int colonne = 0; colonne < COL; colonne++)
+		{
+			if (underMap[ligne][colonne] != vide)
+				nb_block_col++;
+			if (nb_block_col == 10)
+			{
+                nb_line_full++;
+			}
+		}
+		nb_block_col = 0;
+	}
+	return nb_line_full;
+}
+
+void Grid::CleanMap()
+{
+	for (int ligne = 0; ligne < 21; ligne++)
+		for (int colonne = 0; colonne < 12; colonne++)
+			map[ligne][colonne] = nothing;
+
+	for (int ligne = 0; ligne < 21; ligne++)
+	{
+		map[ligne][0] = I;
+		map[ligne][11] = I;
 	}
 }
 

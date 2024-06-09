@@ -10,25 +10,8 @@ void Game::Get_Next_Tetro()
 
 void Game::Attribute_score_and_level(Grid &grid)
 {
-    // compte le nombre de ligne à détruire
-    int nb_block_col = 0;
-    int nb_line_full = 0;
-	for (int ligne = 0; ligne < ROW; ligne++)
-	{
-		for (int colonne = 0; colonne < COL; colonne++)
-		{
-			if (grid.underMap[ligne][colonne] != vide)
-				nb_block_col++;
-			if (nb_block_col == 10)
-			{
-                nb_line_full++;
-			}
-		}
-		nb_block_col = 0;
-	}
-
     // attribution du score
-    switch (nb_line_full)
+    switch (grid.NbLineFull())
     {
         case 1:
             score += 20;
@@ -80,30 +63,18 @@ void Game::Game_Over(sf::RenderWindow &window)
     window.draw(text);
 }
 
-void Game::DrawBarreLateral(sf::RenderWindow &window)
+void Game::DrawHUD(sf::RenderWindow &window)
 {
-    /*
-    sf::RectangleShape background(sf::Vector2f(300,600));
-    //background.setFillColor(sf::Color(3, 1, 66));
-    background.setFillColor(sf::Color::Black);
-    background.setPosition(sf::Vector2f(300,0));
-    window.draw(background);
-    */
     Draw_Score(window);
     Draw_Next_Tetro(window);
     Draw_Score(window);
     Draw_Level(window);
+    //Draw_Pause_Btn(window);
 }
 
-void Game::Draw_Score(sf::RenderWindow &window)
+void Game::Pause(sf::RenderWindow &window)
 {
-    sf::Font score_font;
-    score_font.loadFromFile("./res/font/LiberationSans-Regular.ttf");
-
-    sf::Text txt_score("Score : "+(std::to_string)(score), score_font, 30);
-    txt_score.setPosition(sf::Vector2f(375.0f, 275.0f));
-
-    window.draw(txt_score);
+    printf("Pause\n");
 }
 
 void Game::Draw_Next_Tetro(sf::RenderWindow &window)
@@ -149,4 +120,23 @@ void Game::Draw_Level(sf::RenderWindow &window)
     txt_level.setPosition(sf::Vector2f(375.0f, 305.0f));
 
     window.draw(txt_level);
+}
+
+void Game::Draw_Pause_Btn(sf::RenderWindow &window)
+{
+    sf::RectangleShape btn(sf::Vector2f(20.0f,20.0f));
+    btn.setFillColor(sf::Color::Black);
+    btn.setOutlineThickness(3);
+    btn.setOutlineColor(sf::Color(143,143,143));
+    btn.setPosition(sf::Vector2f(15.0f,15.0f));
+
+    sf::RectangleShape line1(sf::Vector2f(4, 13));
+    line1.setPosition(sf::Vector2f(19.0f,18.0f));
+
+    sf::RectangleShape line2(sf::Vector2f(4, 13));
+    line2.setPosition(sf::Vector2f(27.0f,18.0f));
+
+    window.draw(btn);
+    window.draw(line1);
+    window.draw(line2);
 }

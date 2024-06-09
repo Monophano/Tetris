@@ -39,22 +39,28 @@ int main()
 
 				case sf::Event::KeyPressed:
 					// fermeture rapide du jeu
-					if (event.key.code == sf::Keyboard::Escape)
+					if (!tetromino.SpawnInAnOtherTetro(grid))
 					{
-						switch (game.pause)
+						if (event.key.code == sf::Keyboard::Escape)
 						{
-							case true:
-								game.pause = false;
-								break;
+							switch (game.stop)
+							{
+								case true:
+									game.stop = false;
+									tetromino.Clear_residus(grid);
+									break;
 
-							case false:
-								game.pause = true;
-								break;
+								case false:
+									game.stop = true;
+									break;
+							}
+							//if (game.stop)
+							//	game.Pause(window);
 						}
 					}
 
 					// Contrôle du jeu pendant la partis
-					if (!tetromino.SpawnInAnOtherTetro(grid) && !game.pause)
+					if (!game.stop)
 						switch (event.key.code)
 						{
 							case sf::Keyboard::Right:
@@ -93,7 +99,7 @@ int main()
 
 				case sf::Event::KeyReleased:
 					// contrôle du jeu pendant la parti
-					if (!tetromino.SpawnInAnOtherTetro(grid) && !game.pause)
+					if (!game.stop)
 						switch (event.key.code)
 						{
 							case sf::Keyboard::Down:
@@ -111,7 +117,7 @@ int main()
 			}
 		}
 		// update section
-		if (!game.pause && !tetromino.SpawnInAnOtherTetro(grid)) // vérifie si le jeu est en état de game over
+		if (!game.stop) // vérifie si le jeu est en état de game over
 		{
 			game.Attribute_score_and_level(grid);
 			grid.destroyLineFull();
@@ -142,14 +148,15 @@ int main()
 		// Display section
 		window.clear();
 		grid.Draw(window);
-		game.DrawBarreLateral(window);
-		if (!game.pause && !tetromino.SpawnInAnOtherTetro(grid))
-			printf("Pause : %s\n", game.pause?"true":"false");
+		game.DrawHUD(window);
 		if (tetromino.SpawnInAnOtherTetro(grid))
+		{
+			game.stop = true;
 			game.Game_Over(window);
+		}
 		window.display();
 
-		if (!tetromino.SpawnInAnOtherTetro(grid) && !game.pause) // supprime les résidus de block
+		if (!game.stop) // supprime les résidus de block
 			tetromino.Clear_residus(grid);
 		else
 		{

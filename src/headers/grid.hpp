@@ -11,8 +11,10 @@ class Grid
 		block underMap[21][10];
 		block map[21][12];
 
-		// gestion de la ligne complète
+		// gestion des grilles
 		void destroyLineFull();
+		int NbLineFull();
+		void CleanMap();
 
 		// affichage
 		void Draw(sf::RenderWindow &window);
