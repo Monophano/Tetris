@@ -54,8 +54,6 @@ int main()
 									game.stop = true;
 									break;
 							}
-							//if (game.stop)
-							//	game.Pause(window);
 						}
 					}
 
@@ -97,6 +95,34 @@ int main()
 						}
 					break;
 
+				case sf::Event::MouseButtonPressed:
+					switch (event.mouseButton.button)
+					{
+						case sf::Mouse::Button::Left:
+							if ((game.mpos.x > 15 && game.mpos.x < 35) && (game.mpos.y > 15 && game.mpos.y < 35))
+							{
+								if (!tetromino.SpawnInAnOtherTetro(grid))
+								{
+									switch (game.stop)
+									{
+										case true:
+											game.stop = false;
+											tetromino.Clear_residus(grid);
+											break;
+
+										case false:
+											game.stop = true;
+											break;
+									}
+								}
+							}
+							break;
+
+						default:
+							break;
+					}
+					break;
+
 				case sf::Event::KeyReleased:
 					// contrôle du jeu pendant la parti
 					if (!game.stop)
@@ -119,6 +145,8 @@ int main()
 		// update section
 		if (!game.stop) // vérifie si le jeu est en état de game over
 		{
+			//printf("x: %d y: %d\n",game.mpos.x,game.mpos.y);
+			game.Update(window); // redonne les positions de la souris
 			game.Attribute_score_and_level(grid);
 			grid.destroyLineFull();
 			sf::Time time = clock.getElapsedTime();
@@ -154,6 +182,9 @@ int main()
 			game.stop = true;
 			game.Game_Over(window);
 		}
+		if (!tetromino.SpawnInAnOtherTetro(grid) && game.stop)
+			game.Pause(window);
+		game.Draw_Pause_Btn(window);
 		window.display();
 
 		if (!game.stop) // supprime les résidus de block

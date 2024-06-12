@@ -42,6 +42,12 @@ void Game::Attribute_score_and_level(Grid &grid)
     }
 }
 
+void Game::Update(sf::RenderWindow &window)
+{
+    mpos.x = sf::Mouse::getPosition(window).x;
+    mpos.y = sf::Mouse::getPosition(window).y;
+}
+
 // Affichage du jeu
 void Game::Game_Over(sf::RenderWindow &window)
 {
@@ -56,7 +62,7 @@ void Game::Game_Over(sf::RenderWindow &window)
 
     // dessiner le texte de fin de jeu
     sf::Text text("Game Over", font, 30);
-    text.setPosition(sf::Vector2f(54.0f, 260.0f));
+    text.setPosition(sf::Vector2f(60.0f, 260.0f));
 
     // afficher
     window.draw(black_rect);
@@ -69,12 +75,26 @@ void Game::DrawHUD(sf::RenderWindow &window)
     Draw_Next_Tetro(window);
     Draw_Score(window);
     Draw_Level(window);
-    //Draw_Pause_Btn(window);
 }
 
 void Game::Pause(sf::RenderWindow &window)
 {
-    printf("Pause\n");
+    // dessiner le carrée noir
+    sf::RectangleShape black_rect(sf::Vector2f(300.0f,120.0f));
+    black_rect.setFillColor(sf::Color::Black);
+    black_rect.setPosition(sf::Vector2f(0.0f,220.0f));
+
+    // charger la font
+    sf::Font font;
+    font.loadFromFile("./res/font/Zorque.otf");
+
+    // dessiner le texte de fin de jeu
+    sf::Text text("Pause", font, 33);
+    text.setPosition(sf::Vector2f(90.0f, 260.0f));
+
+    // afficher
+    window.draw(black_rect);
+    window.draw(text);
 }
 
 void Game::Draw_Next_Tetro(sf::RenderWindow &window)
@@ -135,8 +155,17 @@ void Game::Draw_Pause_Btn(sf::RenderWindow &window)
 
     sf::RectangleShape line2(sf::Vector2f(4, 13));
     line2.setPosition(sf::Vector2f(27.0f,18.0f));
+    sf::VertexArray triangle(sf::Triangles, 3);
+    triangle[0].position = sf::Vector2f(20.0f, 20.0f);
+    triangle[1].position = sf::Vector2f(30.0f, 25.0f);
+    triangle[2].position = sf::Vector2f(20.0f, 30.0f);
 
     window.draw(btn);
-    window.draw(line1);
-    window.draw(line2);
+    if (!stop)
+    {
+        window.draw(line1);
+        window.draw(line2);
+    }
+    else
+        window.draw(triangle);
 }

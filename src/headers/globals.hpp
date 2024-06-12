@@ -20,3 +20,8 @@ struct position {
 	int x;
 	int y;
 };
+
+struct Mouse_Position {
+	int x;
+	int y;
+};
