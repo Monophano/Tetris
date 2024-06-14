@@ -8,6 +8,7 @@
 class Game
 {
     public:
+        ~Game();
         // contrôle du jeu
         void Get_Next_Tetro();
         void Attribute_score_and_level(Grid *grid);

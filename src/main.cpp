@@ -119,6 +119,8 @@ int main()
 							if (tetromino.SpawnInAnOtherTetro(grid))
 								if ((game->mpos.x >= 350 && game->mpos.x < 550) && (game->mpos.y >= 475 && game->mpos.y <= 550))
 								{
+									delete grid;
+									delete game;
 									grid = new Grid();
 									game = new Game();
 								}

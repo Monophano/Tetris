@@ -1,5 +1,21 @@
 #include <ctime>
+#include <fstream>
+#include <iostream>
 #include "headers/game.hpp"
+
+Game::~Game()
+{
+    std::ifstream file("res/high_score.txt");
+    if (file)
+    {
+        std::string ligne;
+        if (std::getline(file, ligne))
+        {
+            // ligne now contains the first line of the file
+            std::cout << ligne << std::endl;
+        }
+    }
+}
 
 // Contrôle du jeu
 void Game::Get_Next_Tetro()
