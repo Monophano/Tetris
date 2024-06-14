@@ -15,12 +15,14 @@ int main()
 	window.setFramerateLimit(60);
 
 	// Initialisation du jeu
-	Grid grid;
+	Grid *grid = nullptr;
+	grid = new Grid();
 	sf::Clock clock;
-	Game game;
-	game.Get_Next_Tetro(); // premier tetro du jeu
-	Tetromino tetromino(game.next_tetro);
-	game.Get_Next_Tetro(); // prochain tetro à arriver
+	Game *game = nullptr;
+	game = new Game();
+	game->Get_Next_Tetro(); // premier tetro du jeu
+	Tetromino tetromino(game->next_tetro);
+	game->Get_Next_Tetro(); // prochain tetro à arriver
 
 	// initialisation du jeu
 	tetromino.Add_block_to_map(grid);
@@ -43,22 +45,22 @@ int main()
 					{
 						if (event.key.code == sf::Keyboard::Escape)
 						{
-							switch (game.stop)
+							switch (game->stop)
 							{
 								case true:
-									game.stop = false;
+									game->stop = false;
 									tetromino.Clear_residus(grid);
 									break;
 
 								case false:
-									game.stop = true;
+									game->stop = true;
 									break;
 							}
 						}
 					}
 
 					// Contrôle du jeu pendant la partis
-					if (!game.stop)
+					if (!game->stop)
 						switch (event.key.code)
 						{
 							case sf::Keyboard::Right:
@@ -78,16 +80,16 @@ int main()
 
 							case sf::Keyboard::Down:
 								if (touche_bas_presse == false)
-									game.limit_tempon = game.limit;
-								game.limit = 30;
+									game->limit_tempon = game->limit;
+								game->limit = 30;
 								touche_bas_presse = true;
 								break;
 
 							case sf::Keyboard::Space:
 								tetromino.HardDrop(grid); // descend tout en bas jusqu'à collisionner
-								tetromino = Tetromino(game.next_tetro);
-								game.Get_Next_Tetro();
-								game.score += 10; // ajouter dix points quand un block est posé
+								tetromino = Tetromino(game->next_tetro);
+								game->Get_Next_Tetro();
+								game->score += 10; // ajouter dix points quand un block est posé
 								break;
 
 							default:
@@ -99,23 +101,27 @@ int main()
 					switch (event.mouseButton.button)
 					{
 						case sf::Mouse::Button::Left:
-							if ((game.mpos.x > 15 && game.mpos.x < 35) && (game.mpos.y > 15 && game.mpos.y < 35))
-							{
-								if (!tetromino.SpawnInAnOtherTetro(grid))
+							if (!tetromino.SpawnInAnOtherTetro(grid))
+								if ((game->mpos.x >= 15 && game->mpos.x <= 35) && (game->mpos.y >= 15 && game->mpos.y <= 35))
 								{
-									switch (game.stop)
+									switch (game->stop)
 									{
 										case true:
-											game.stop = false;
+											game->stop = false;
 											tetromino.Clear_residus(grid);
 											break;
 
 										case false:
-											game.stop = true;
+											game->stop = true;
 											break;
 									}
 								}
-							}
+							if (tetromino.SpawnInAnOtherTetro(grid))
+								if ((game->mpos.x >= 350 && game->mpos.x < 550) && (game->mpos.y >= 475 && game->mpos.y <= 550))
+								{
+									grid = new Grid();
+									game = new Game();
+								}
 							break;
 
 						default:
@@ -125,11 +131,11 @@ int main()
 
 				case sf::Event::KeyReleased:
 					// contrôle du jeu pendant la parti
-					if (!game.stop)
+					if (!game->stop)
 						switch (event.key.code)
 						{
 							case sf::Keyboard::Down:
-								game.limit = game.limit_tempon;
+								game->limit = game->limit_tempon;
 								touche_bas_presse = false;
 								break;
 
@@ -143,14 +149,13 @@ int main()
 			}
 		}
 		// update section
-		if (!game.stop) // vérifie si le jeu est en état de game over
+		if (!game->stop) // vérifie si le jeu est en état de game over
 		{
 			//printf("x: %d y: %d\n",game.mpos.x,game.mpos.y);
-			game.Update(window); // redonne les positions de la souris
-			game.Attribute_score_and_level(grid);
-			grid.destroyLineFull();
+			game->Attribute_score_and_level(grid);
+			grid->destroyLineFull();
 			sf::Time time = clock.getElapsedTime();
-			if (tetromino.HasnotReachedStg(grid) && time.asMilliseconds() > game.limit)
+			if (tetromino.HasnotReachedStg(grid) && time.asMilliseconds() > game->limit)
 			{
 				tetromino.Fall();
 				time = clock.restart();
@@ -164,30 +169,32 @@ int main()
 				if (timer_fixe.asMilliseconds() >= 500)
 				{
 					tetromino.Add_block_to_undermap(grid);
-					tetromino = Tetromino(game.next_tetro);
-					game.Get_Next_Tetro();
-					game.score += 10; // ajouter dix points quand un block est posé
+					tetromino = Tetromino(game->next_tetro);
+					game->Get_Next_Tetro();
+					game->score += 10; // ajouter dix points quand un block est posé
 				}
 				else
 					tetromino.Add_block_to_map(grid);
 			}
 		}
+		game->Mouse_update(window);
 
 		// Display section
 		window.clear();
-		grid.Draw(window);
-		game.DrawHUD(window);
+		grid->Draw(window);
+		game->DrawHUD(window);
 		if (tetromino.SpawnInAnOtherTetro(grid))
 		{
-			game.stop = true;
-			game.Game_Over(window);
+			game->stop = true;
+			game->Game_Over(window);
+			game->DrawRetryBtn(window);
 		}
-		if (!tetromino.SpawnInAnOtherTetro(grid) && game.stop)
-			game.Pause(window);
-		game.Draw_Pause_Btn(window);
+		if (!tetromino.SpawnInAnOtherTetro(grid) && game->stop)
+			game->Pause(window);
+		game->Draw_Pause_Btn(window);
 		window.display();
 
-		if (!game.stop) // supprime les résidus de block
+		if (!game->stop) // supprime les résidus de block
 			tetromino.Clear_residus(grid);
 		else
 		{

@@ -8,10 +8,10 @@ void Game::Get_Next_Tetro()
     next_tetro = (block)((int)(rand()%7));
 }
 
-void Game::Attribute_score_and_level(Grid &grid)
+void Game::Attribute_score_and_level(Grid *grid)
 {
     // attribution du score
-    switch (grid.NbLineFull())
+    switch (grid->NbLineFull())
     {
         case 1:
             score += 20;
@@ -42,7 +42,7 @@ void Game::Attribute_score_and_level(Grid &grid)
     }
 }
 
-void Game::Update(sf::RenderWindow &window)
+void Game::Mouse_update(sf::RenderWindow &window)
 {
     mpos.x = sf::Mouse::getPosition(window).x;
     mpos.y = sf::Mouse::getPosition(window).y;
@@ -75,6 +75,27 @@ void Game::DrawHUD(sf::RenderWindow &window)
     Draw_Next_Tetro(window);
     Draw_Score(window);
     Draw_Level(window);
+}
+
+void Game::DrawRetryBtn(sf::RenderWindow &window)
+{
+    sf::RectangleShape rect(sf::Vector2f(200.0f,75.0f));
+    rect.setFillColor(sf::Color::White);
+    rect.setPosition(sf::Vector2f(350.0f,475.0f));
+    rect.setOutlineColor(sf::Color(143,143,143));
+    rect.setOutlineThickness(4);
+
+    // charger la font
+    sf::Font font;
+    font.loadFromFile("./res/font/Zorque.otf");
+
+    // dessiner le texte
+    sf::Text text("Retry", font, 40);
+    text.setPosition(sf::Vector2f(385.0f, 485.0f));
+    text.setFillColor(sf::Color::Black);
+
+    window.draw(rect);
+    window.draw(text);
 }
 
 void Game::Pause(sf::RenderWindow &window)

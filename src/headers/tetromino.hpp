@@ -13,21 +13,21 @@ class Tetromino
 		// mouvement du tetromino
 		void Move(bool droite);
 		void Fall();
-		void HardDrop(Grid &grid);
+		void HardDrop(Grid *grid);
 		void Rotate();
 
 		// positionnement du tetromino dans la grille
-		void Add_block_to_map(Grid &grid);
-		void Add_block_to_undermap(Grid &grid);
-		void Clear_residus(Grid &grid);
+		void Add_block_to_map(Grid *grid);
+		void Add_block_to_undermap(Grid *grid);
+		void Clear_residus(Grid *grid);
 
 		// collision
-		bool HasnotReachedStg(Grid &grid);
-		bool HasnotCollidedWithStg(Grid &grid, bool touche_gauche);
-		bool CanRotate(Grid &grid);
+		bool HasnotReachedStg(Grid *grid);
+		bool HasnotCollidedWithStg(Grid *grid, bool touche_gauche);
+		bool CanRotate(Grid *grid);
 
 		// Fin de jeu ?
-		bool SpawnInAnOtherTetro(Grid &grid);
+		bool SpawnInAnOtherTetro(Grid *grid);
 
 		// Debug
 		void DebugDraw();

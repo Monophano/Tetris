@@ -10,8 +10,8 @@ class Game
     public:
         // contrôle du jeu
         void Get_Next_Tetro();
-        void Attribute_score_and_level(Grid &grid);
-        void Update(sf::RenderWindow &window);
+        void Attribute_score_and_level(Grid *grid);
+        void Mouse_update(sf::RenderWindow &window);
         block next_tetro;
         int score = 0;
         int limit = 600; // par défaut
@@ -22,6 +22,7 @@ class Game
         // Affichage du jeu
         void Game_Over(sf::RenderWindow &window);
         void DrawHUD(sf::RenderWindow &window);
+        void DrawRetryBtn(sf::RenderWindow &window);
         void Pause(sf::RenderWindow &window);
         void Draw_Pause_Btn(sf::RenderWindow &window);
 
