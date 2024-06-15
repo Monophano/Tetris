@@ -1,19 +1,28 @@
 #include <ctime>
 #include <fstream>
-#include <iostream>
 #include "headers/game.hpp"
 
 Game::~Game()
 {
-    std::ifstream file("res/high_score.txt");
-    if (file)
+    std::ifstream read_file("res/high_score.txt");
+    bool new_score = false;
+    if (read_file)
     {
         std::string ligne;
-        if (std::getline(file, ligne))
+        if (std::getline(read_file, ligne))
         {
-            // ligne now contains the first line of the file
-            std::cout << ligne << std::endl;
+            if (std::stoi(ligne) < score)
+                new_score = true;
         }
+    }
+    read_file.close();
+
+    if (new_score)
+    {
+        std::ofstream write_file("res/high_score.txt");
+        if (write_file)
+            write_file << score;
+        write_file.close();
     }
 }
 
@@ -90,6 +99,7 @@ void Game::DrawHUD(sf::RenderWindow &window)
     Draw_Score(window);
     Draw_Next_Tetro(window);
     Draw_Score(window);
+    Draw_High_Score(window);
     Draw_Level(window);
 }
 
@@ -163,9 +173,28 @@ void Game::Draw_Score(sf::RenderWindow &window)
     score_font.loadFromFile("./res/font/LiberationSans-Regular.ttf");
 
     sf::Text txt_score("Score : "+(std::to_string)(score), score_font, 30);
-    txt_score.setPosition(sf::Vector2f(375.0f, 275.0f));
+    txt_score.setPosition(sf::Vector2f(350.0f, 275.0f));
 
     window.draw(txt_score);
+}
+
+void Game::Draw_High_Score(sf::RenderWindow &window)
+{
+    std::ifstream file("res/high_score.txt");
+    if (file)
+    {
+        std::string ligne;
+        if (std::getline(file, ligne))
+        {
+            sf::Font high_score_font;
+            high_score_font.loadFromFile("./res/font/LiberationSans-Regular.ttf");
+
+            sf::Text txt_high_score("High score : "+(ligne), high_score_font, 30);
+            txt_high_score.setPosition(sf::Vector2f(350.0f, 310.0f));
+            window.draw(txt_high_score);
+        }
+    }
+    file.close();
 }
 
 void Game::Draw_Level(sf::RenderWindow &window)
@@ -174,7 +203,7 @@ void Game::Draw_Level(sf::RenderWindow &window)
     level_font.loadFromFile("./res/font/LiberationSans-Regular.ttf");
 
     sf::Text txt_level("Level : "+(std::to_string)(level), level_font, 30);
-    txt_level.setPosition(sf::Vector2f(375.0f, 305.0f));
+    txt_level.setPosition(sf::Vector2f(350.0f, 345.0f));
 
     window.draw(txt_level);
 }

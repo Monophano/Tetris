@@ -32,6 +32,7 @@ class Game
         int level = 1;
         void Draw_Next_Tetro(sf::RenderWindow &window);
         void Draw_Score(sf::RenderWindow &window);
+        void Draw_High_Score(sf::RenderWindow &window);
         void Draw_Level(sf::RenderWindow &window);
         std::vector<std::string> path_img_tetro {
             "res/img/I_preview.png",
