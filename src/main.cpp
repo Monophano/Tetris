@@ -115,8 +115,9 @@ int main()
 									}
 								}
 
+							/*
 							if (tetromino.SpawnInAnOtherTetro(grid))
-								// Bouton rejouer
+								// Bouton menu
 								if ((game->mpos.x >= 350 && game->mpos.x < 550) && (game->mpos.y >= 475 && game->mpos.y <= 550))
 								{
 									game->Save_High_Score();
@@ -124,6 +125,24 @@ int main()
 									delete game;
 									grid = new Grid();
 									game = new Game();
+								}
+							*/
+
+							if (tetromino.SpawnInAnOtherTetro(grid))
+								// Bouton rejouer
+								if ((game->mpos.x >= 350 && game->mpos.x < 550) && (game->mpos.y >= 475 && game->mpos.y <= 550))
+								{
+									game->Save_High_Score();
+									delete grid;
+									grid = new Grid();
+									tetromino = Tetromino(game->next_tetro);
+									game->Get_Next_Tetro();
+									game->title_screen = false;
+									game->score = 0;
+									game->limit = 600;
+									game->limit_tempon = game->limit;
+									game->level = 1;
+									game->stop = false;
 								}
 
 							if (game->title_screen)
