@@ -1,30 +1,4 @@
-#include <ctime>
-#include <fstream>
 #include "headers/game.hpp"
-
-Game::~Game()
-{
-    std::ifstream read_file("res/high_score.txt");
-    bool new_score = false;
-    if (read_file)
-    {
-        std::string ligne;
-        if (std::getline(read_file, ligne))
-        {
-            if (std::stoi(ligne) < score)
-                new_score = true;
-        }
-    }
-    read_file.close();
-
-    if (new_score)
-    {
-        std::ofstream write_file("res/high_score.txt");
-        if (write_file)
-            write_file << score;
-        write_file.close();
-    }
-}
 
 // Contrôle du jeu
 void Game::Get_Next_Tetro()
@@ -73,37 +47,123 @@ void Game::Mouse_update(sf::RenderWindow &window)
     mpos.y = sf::Mouse::getPosition(window).y;
 }
 
+void Game::Save_High_Score()
+{
+    std::ifstream read_file("res/high_score.txt");
+    bool new_score = false;
+    if (read_file)
+    {
+        std::string ligne;
+        if (std::getline(read_file, ligne))
+        {
+            if (std::stoi(ligne) < score)
+                new_score = true;
+        }
+    }
+    read_file.close();
+
+    if (new_score)
+    {
+        std::ofstream write_file("res/high_score.txt");
+        if (write_file)
+            write_file << score;
+        write_file.close();
+    }
+}
+
 // Affichage du jeu
-void Game::Game_Over(sf::RenderWindow &window)
+void Game::Game_Over(sf::RenderWindow &window, bool game_over)
 {
-    // dessiner le carrée noir
-    sf::RectangleShape black_rect(sf::Vector2f(300.0f,120.0f));
-    black_rect.setFillColor(sf::Color::Black);
-    black_rect.setPosition(sf::Vector2f(0.0f,220.0f));
+    if (game_over)
+    {
+        stop = true;
+        // dessiner le carrée noir
+        sf::RectangleShape black_rect(sf::Vector2f(300.0f,120.0f));
+        black_rect.setFillColor(sf::Color::Black);
+        black_rect.setPosition(sf::Vector2f(0.0f,220.0f));
 
-    // charger la font
-    sf::Font font;
-    font.loadFromFile("./res/font/Zorque.otf");
+        // charger la font
+        sf::Font font;
+        font.loadFromFile("./res/font/Zorque.otf");
 
-    // dessiner le texte de fin de jeu
-    sf::Text text("Game Over", font, 30);
-    text.setPosition(sf::Vector2f(60.0f, 260.0f));
+        // dessiner le texte de fin de jeu
+        sf::Text text("Game Over", font, 30);
+        text.setPosition(sf::Vector2f(60.0f, 260.0f));
 
-    // afficher
-    window.draw(black_rect);
-    window.draw(text);
+        // afficher
+        window.draw(black_rect);
+        window.draw(text);
+    }
 }
 
-void Game::DrawHUD(sf::RenderWindow &window)
+void Game::DrawHUD(sf::RenderWindow &window, bool game_over)
 {
-    Draw_Score(window);
-    Draw_Next_Tetro(window);
-    Draw_Score(window);
-    Draw_High_Score(window);
-    Draw_Level(window);
+    if (!title_screen)
+    {
+        Draw_Score(window);
+        Draw_Next_Tetro(window);
+        Draw_Score(window);
+        Draw_High_Score(window);
+        Draw_Level(window);
+        Draw_Pause_Btn(window);
+        if (game_over)
+            DrawRetryBtn(window, game_over);
+    }
 }
 
-void Game::DrawRetryBtn(sf::RenderWindow &window)
+void Game::DrawTitleScreen(sf::RenderWindow &window)
+{
+    if (title_screen)
+    {
+        // charger la font
+        sf::Font font;
+        font.loadFromFile("./res/font/Zorque.otf");
+
+        // dessiner le texte de fin de jeu
+        sf::Text T("T", font, 70);
+        T.setPosition(sf::Vector2f(30.0f, 50.0f));
+        T.setFillColor(sf::Color(255,0,0));
+        sf::Text E("e", font, 70);
+        E.setPosition(sf::Vector2f(70.0f, 50.0f));
+        E.setFillColor(sf::Color(245, 89, 5));
+        sf::Text t("t", font, 70);
+        t.setPosition(sf::Vector2f(120.0f, 50.0f));
+        t.setFillColor(sf::Color(255,255,0));
+        sf::Text R("R", font, 70);
+        R.setPosition(sf::Vector2f(160.0f, 50.0f));
+        R.setFillColor(sf::Color(37, 250, 5));
+        sf::Text I("I", font, 70);
+        I.setPosition(sf::Vector2f(205.0f, 50.0f));
+        I.setFillColor(sf::Color(5, 201, 245));
+        sf::Text S("S", font, 70);
+        S.setPosition(sf::Vector2f(230.0f, 50.0f));
+        S.setFillColor(sf::Color::Magenta);
+
+
+        sf::RectangleShape rect(sf::Vector2f(200.0f,75.0f));
+        rect.setFillColor(sf::Color::White);
+        rect.setPosition(sf::Vector2f(350.0f,475.0f));
+        rect.setOutlineColor(sf::Color(143,143,143));
+        rect.setOutlineThickness(4);
+
+        // dessiner le texte
+        sf::Text text_play("Play", font, 40);
+        text_play.setPosition(sf::Vector2f(400.0f, 485.0f));
+        text_play.setFillColor(sf::Color::Black);
+
+        // afficher
+        window.draw(rect);
+        window.draw(text_play);
+        window.draw(T);
+        window.draw(E);
+        window.draw(t);
+        window.draw(R);
+        window.draw(I);
+        window.draw(S);
+    }
+}
+
+void Game::DrawRetryBtn(sf::RenderWindow &window, bool game_over)
 {
     sf::RectangleShape rect(sf::Vector2f(200.0f,75.0f));
     rect.setFillColor(sf::Color::White);
@@ -124,24 +184,27 @@ void Game::DrawRetryBtn(sf::RenderWindow &window)
     window.draw(text);
 }
 
-void Game::Pause(sf::RenderWindow &window)
+void Game::Pause(sf::RenderWindow &window, bool pause)
 {
-    // dessiner le carrée noir
-    sf::RectangleShape black_rect(sf::Vector2f(300.0f,120.0f));
-    black_rect.setFillColor(sf::Color::Black);
-    black_rect.setPosition(sf::Vector2f(0.0f,220.0f));
+    if (pause)
+    {
+        // dessiner le carrée noir
+        sf::RectangleShape black_rect(sf::Vector2f(300.0f,120.0f));
+        black_rect.setFillColor(sf::Color::Black);
+        black_rect.setPosition(sf::Vector2f(0.0f,220.0f));
 
-    // charger la font
-    sf::Font font;
-    font.loadFromFile("./res/font/Zorque.otf");
+        // charger la font
+        sf::Font font;
+        font.loadFromFile("./res/font/Zorque.otf");
 
-    // dessiner le texte de fin de jeu
-    sf::Text text("Pause", font, 33);
-    text.setPosition(sf::Vector2f(90.0f, 260.0f));
+        // dessiner le texte de fin de jeu
+        sf::Text text("Pause", font, 33);
+        text.setPosition(sf::Vector2f(90.0f, 260.0f));
 
-    // afficher
-    window.draw(black_rect);
-    window.draw(text);
+        // afficher
+        window.draw(black_rect);
+        window.draw(text);
+    }
 }
 
 void Game::Draw_Next_Tetro(sf::RenderWindow &window)

@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <stdio.h>
+#include <iostream>
 #include "headers/game.hpp"
 #include "headers/tetromino.hpp"
 #include "headers/grid.hpp"
@@ -16,10 +17,10 @@ int main()
 
 	// Initialisation du jeu
 	Grid *grid = nullptr;
-	grid = new Grid();
-	sf::Clock clock;
 	Game *game = nullptr;
+	grid = new Grid();
 	game = new Game();
+	sf::Clock clock;
 	game->Get_Next_Tetro(); // premier tetro du jeu
 	Tetromino tetromino(game->next_tetro);
 	game->Get_Next_Tetro(); // prochain tetro à arriver
@@ -40,11 +41,9 @@ int main()
 					break;
 
 				case sf::Event::KeyPressed:
-					// fermeture rapide du jeu
-					if (!tetromino.SpawnInAnOtherTetro(grid))
-					{
+					// mode pause
+					if (!tetromino.SpawnInAnOtherTetro(grid) && !game->title_screen)
 						if (event.key.code == sf::Keyboard::Escape)
-						{
 							switch (game->stop)
 							{
 								case true:
@@ -56,11 +55,9 @@ int main()
 									game->stop = true;
 									break;
 							}
-						}
-					}
 
 					// Contrôle du jeu pendant la partis
-					if (!game->stop)
+					if (!game->stop && !game->title_screen)
 						switch (event.key.code)
 						{
 							case sf::Keyboard::Right:
@@ -102,6 +99,7 @@ int main()
 					{
 						case sf::Mouse::Button::Left:
 							if (!tetromino.SpawnInAnOtherTetro(grid))
+								// Bouton pause
 								if ((game->mpos.x >= 15 && game->mpos.x <= 35) && (game->mpos.y >= 15 && game->mpos.y <= 35))
 								{
 									switch (game->stop)
@@ -116,13 +114,31 @@ int main()
 											break;
 									}
 								}
+
 							if (tetromino.SpawnInAnOtherTetro(grid))
+								// Bouton rejouer
 								if ((game->mpos.x >= 350 && game->mpos.x < 550) && (game->mpos.y >= 475 && game->mpos.y <= 550))
 								{
+									game->Save_High_Score();
 									delete grid;
 									delete game;
 									grid = new Grid();
 									game = new Game();
+								}
+
+							if (game->title_screen)
+								// bouton jouer
+								if ((game->mpos.x >= 350 && game->mpos.x < 550) && (game->mpos.y >= 475 && game->mpos.y <= 550))
+								{
+									delete grid;
+									grid = new Grid();
+									tetromino = Tetromino(game->next_tetro);
+									game->Get_Next_Tetro();
+									game->title_screen = false;
+									game->score = 0;
+									game->limit = 600;
+									game->limit_tempon = game->limit;
+									game->level = 1;
 								}
 							break;
 
@@ -133,7 +149,7 @@ int main()
 
 				case sf::Event::KeyReleased:
 					// contrôle du jeu pendant la parti
-					if (!game->stop)
+					if (!game->stop && !game->title_screen)
 						switch (event.key.code)
 						{
 							case sf::Keyboard::Down:
@@ -180,20 +196,21 @@ int main()
 			}
 		}
 		game->Mouse_update(window);
+		bool game_over = tetromino.SpawnInAnOtherTetro(grid);
 
 		// Display section
 		window.clear();
-		grid->Draw(window);
-		game->DrawHUD(window);
-		if (tetromino.SpawnInAnOtherTetro(grid))
-		{
-			game->stop = true;
-			game->Game_Over(window);
-			game->DrawRetryBtn(window);
-		}
-		if (!tetromino.SpawnInAnOtherTetro(grid) && game->stop)
-			game->Pause(window);
-		game->Draw_Pause_Btn(window);
+
+		grid->Draw(window); // affichage de la grille de jeu
+
+		// Affichage des menus / HUD
+		game->DrawHUD(window, game_over);
+		game->DrawTitleScreen(window);
+
+		// affichage de l'état du jeu
+		game->Game_Over(window, game_over);
+		game->Pause(window, (!tetromino.SpawnInAnOtherTetro(grid) && game->stop));
+
 		window.display();
 
 		if (!game->stop) // supprime les résidus de block
