@@ -14,7 +14,7 @@ class Game
         // contrôle du jeu
         void Get_Next_Tetro();
         void Attribute_score_and_level(Grid *grid);
-        void Mouse_update(sf::RenderWindow &window);
+        void update(sf::RenderWindow &window);
         void Save_High_Score();
         bool title_screen = true;
         block next_tetro;

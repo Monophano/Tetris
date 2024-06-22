@@ -18,7 +18,7 @@ int main()
 	// Initialisation du jeu
 	Grid *grid = nullptr;
 	Game *game = nullptr;
-	grid = new Grid();
+	grid = new Grid(0);
 	game = new Game();
 	sf::Clock clock;
 	game->Get_Next_Tetro(); // premier tetro du jeu
@@ -134,7 +134,7 @@ int main()
 								{
 									game->Save_High_Score();
 									delete grid;
-									grid = new Grid();
+									grid = new Grid(0);
 									tetromino = Tetromino(game->next_tetro);
 									game->Get_Next_Tetro();
 									game->title_screen = false;
@@ -150,7 +150,7 @@ int main()
 								if ((game->mpos.x >= 350 && game->mpos.x < 550) && (game->mpos.y >= 475 && game->mpos.y <= 550))
 								{
 									delete grid;
-									grid = new Grid();
+									grid = new Grid(0);
 									tetromino = Tetromino(game->next_tetro);
 									game->Get_Next_Tetro();
 									game->title_screen = false;
@@ -214,13 +214,22 @@ int main()
 					tetromino.Add_block_to_map(grid);
 			}
 		}
-		game->Mouse_update(window);
+		game->update(window);
 		bool game_over = tetromino.SpawnInAnOtherTetro(grid);
+		if (game_over && game->title_screen)
+		{
+			delete grid;
+			grid = new Grid(0);
+			tetromino = Tetromino(game->next_tetro);
+			game->Get_Next_Tetro();
+			game->stop = false;
+		}
 
 		// Display section
 		window.clear();
 
 		grid->Draw(window); // affichage de la grille de jeu
+		grid->DebugDraw();
 
 		// Affichage des menus / HUD
 		game->DrawHUD(window, game_over);

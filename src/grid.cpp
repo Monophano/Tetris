@@ -1,23 +1,32 @@
 #include "headers/grid.hpp"
 
-Grid::Grid()
+Grid::Grid(int _decalage)
 {
-	for (int ligne = 0; ligne < 21; ligne++)
-		for (int colonne = 0; colonne < 12; colonne++)
-			map[ligne][colonne] = nothing;
+	decalage = _decalage;
+	if (_decalage == 1)
+	{
+		for (int ligne = 0; ligne < 21; ligne++)
+			for (int colonne = 0; colonne < 12; colonne++)
+				map[ligne][colonne] = nothing;
 
+		for (int ligne = 0; ligne < 21; ligne++)
+		{
+			map[ligne][0] = I;
+			map[ligne][11] = I;
+		}
+	}
+	else
+	{
+		for (int ligne = 0; ligne < 20; ligne++)
+			for (int colonne = 0; colonne < COL; colonne++)
+				map[ligne][colonne] = nothing;
+	}
 	for (int ligne = 0; ligne < ROW; ligne++)
-		for (int colonne = 0; colonne < COL; colonne++)
-			underMap[ligne][colonne] = vide;
+			for (int colonne = 0; colonne < COL; colonne++)
+				underMap[ligne][colonne] = vide;
 
 	for (int colonne = 0; colonne < COL; colonne++) // Initialise Laste Row with a complete line to simplify colision detection on last line
 		underMap[20][colonne] = I;
-
-	for (int ligne = 0; ligne < 21; ligne++)
-	{
-		map[ligne][0] = I;
-		map[ligne][11] = I;
-	}
 }
 
 /* gestion des grilles */
@@ -71,19 +80,6 @@ int Grid::NbLineFull()
 	return nb_line_full;
 }
 
-void Grid::CleanMap()
-{
-	for (int ligne = 0; ligne < 21; ligne++)
-		for (int colonne = 0; colonne < 12; colonne++)
-			map[ligne][colonne] = nothing;
-
-	for (int ligne = 0; ligne < 21; ligne++)
-	{
-		map[ligne][0] = I;
-		map[ligne][11] = I;
-	}
-}
-
 /* Affichage */
 void Grid::Draw(sf::RenderWindow &window)
 {
@@ -103,10 +99,10 @@ void Grid::Draw(sf::RenderWindow &window)
 	// Grille du dessus
 	for (int ligne = 0; ligne < ROW; ligne++)
 	{
-		for (int colonne = 1; colonne < 11; colonne++)
+		for (int colonne = decalage; colonne < 10+decalage; colonne++)
 		{
       		cell.setFillColor(color[map[ligne][colonne]]);
-			cell.setPosition((colonne-1) * SIZECELL, ligne * SIZECELL);
+			cell.setPosition((colonne-decalage) * SIZECELL, ligne * SIZECELL);
 			window.draw(cell);
 		}
 	}

@@ -41,10 +41,12 @@ void Game::Attribute_score_and_level(Grid *grid)
     }
 }
 
-void Game::Mouse_update(sf::RenderWindow &window)
+void Game::update(sf::RenderWindow &window)
 {
     mpos.x = sf::Mouse::getPosition(window).x;
     mpos.y = sf::Mouse::getPosition(window).y;
+    if (title_screen)
+        stop = false;
 }
 
 void Game::Save_High_Score()
@@ -74,7 +76,7 @@ void Game::Save_High_Score()
 // Affichage du jeu
 void Game::Game_Over(sf::RenderWindow &window, bool game_over)
 {
-    if (game_over)
+    if (game_over && !title_screen)
     {
         stop = true;
         // dessiner le carrée noir
@@ -186,7 +188,7 @@ void Game::DrawRetryBtn(sf::RenderWindow &window, bool game_over)
 
 void Game::Pause(sf::RenderWindow &window, bool pause)
 {
-    if (pause)
+    if (pause && !title_screen)
     {
         // dessiner le carrée noir
         sf::RectangleShape black_rect(sf::Vector2f(300.0f,120.0f));

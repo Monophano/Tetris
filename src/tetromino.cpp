@@ -137,7 +137,7 @@ void Tetromino::Add_block_to_undermap(Grid *grid)
 	for (int ligne = 0; ligne <bsize; ligne++)
 		for (int colonne = 0; colonne < bsize; colonne++)
 			if (actual_block[ligne][colonne] != nothing)
-				grid->underMap[ligne + pos_temp.y][colonne + (pos_temp.x - 1)] = actual_block[ligne][colonne];
+				grid->underMap[ligne + pos_temp.y][colonne + (pos_temp.x /*- grid->decalage*/)] = actual_block[ligne][colonne];
 }
 
 void Tetromino::Clear_residus(Grid *grid)
@@ -154,7 +154,7 @@ bool Tetromino::HasnotReachedStg(Grid *grid)
 	for(int ligne = bsize-1;  ligne >= 0 ; ligne--)
 		for (int colonne = 0; colonne < bsize; colonne++)
 			if (actual_block[ligne][colonne] != nothing)
-				if (grid->underMap[pos.y + ligne + 1][(pos.x - 1) + colonne] != vide)
+				if (grid->underMap[pos.y + ligne + 1][(pos.x - grid->decalage) + colonne] != vide)
 					return false;
 	return true;
 }
@@ -167,14 +167,14 @@ bool Tetromino::HasnotCollidedWithStg(Grid *grid, bool touche_gauche)
 		for (int ligne = 0; ligne < bsize; ligne++)
 			for (int colonne = 0; colonne < bsize; colonne++)
 				if (actual_block[ligne][colonne] != nothing)
-					if (grid->underMap[pos.y + ligne][((pos.x-1) + colonne) - 1] != vide)
+					if (grid->underMap[pos.y + ligne][((pos.x-1) + colonne) - grid->decalage] != vide)
 						return false;
 
 		// collision avec les bords de la carte
 		for (int ligne = 0; ligne < bsize; ligne++)
 			for (int colonne = 0; colonne < bsize; colonne++)
 				if (actual_block[ligne][colonne] != nothing)
-					if (grid->map[pos.y + ligne][(pos.x + colonne) - 1] != nothing)
+					if (grid->map[pos.y + ligne][(pos.x + colonne) - grid->decalage] != nothing)
 						return false;
 	}
 	else
@@ -183,14 +183,14 @@ bool Tetromino::HasnotCollidedWithStg(Grid *grid, bool touche_gauche)
 		for (int ligne = 0; ligne < bsize; ligne++)
 			for (int colonne = bsize - 1; colonne >= 0; colonne--)
 				if (actual_block[ligne][colonne] != nothing)
-					if (grid->underMap[pos.y + ligne][((pos.x-1) + colonne) + 1] != vide)
+					if (grid->underMap[pos.y + ligne][((pos.x-grid->decalage) + colonne) + 1] != vide)
 						return false;
 
 		// collision avec les bords de la carte
 		for (int ligne = 0; ligne < bsize; ligne++)
 			for (int colonne = bsize - 1; colonne >= 0; colonne--)
 				if (actual_block[ligne][colonne] != nothing)
-					if (grid->map[pos.y + ligne][(pos.x + colonne) + 1] != nothing)
+					if (grid->map[pos.y + ligne][(pos.x + colonne) + grid->decalage] != nothing)
 						return false;
 	}
 	return true;
@@ -204,7 +204,7 @@ bool Tetromino::CanRotate(Grid *grid)
 		for (int colonne = 0; colonne < bsize; colonne++)
 			if (colonne + pos.x <= 0 // check rotation in the left side
 				|| colonne + pos.x > 10 // check rotation in the right side
-				|| grid->underMap[ligne + pos.y][colonne + (pos.x-1)] != vide) // check rotation against another tetromino
+				|| grid->underMap[ligne + pos.y][colonne + (pos.x-grid->decalage)] != vide) // check rotation against another tetromino
 				return false;
 	}
 
@@ -218,7 +218,7 @@ bool Tetromino::SpawnInAnOtherTetro(Grid *grid)
 		for (int colonne = 0; colonne < bsize; colonne++)
 			if (pos.y == 0)
 				if (actual_block[ligne][colonne] != nothing)
-					if (grid->underMap[ligne + pos.y][colonne + (pos.x - 1)] != vide)
+					if (grid->underMap[ligne + pos.y][colonne + (pos.x - grid->decalage)] != vide)
 						return true;
 
 	return false;
