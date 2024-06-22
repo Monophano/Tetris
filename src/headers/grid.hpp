@@ -10,6 +10,7 @@ class Grid
 		Grid(int _decalage);
 		block underMap[21][10];
 		block map[21][12];
+		block map_sans_bord[21][10];
 		int decalage;
 
 		// gestion des grilles

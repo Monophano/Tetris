@@ -137,7 +137,7 @@ void Tetromino::Add_block_to_undermap(Grid *grid)
 	for (int ligne = 0; ligne <bsize; ligne++)
 		for (int colonne = 0; colonne < bsize; colonne++)
 			if (actual_block[ligne][colonne] != nothing)
-				grid->underMap[ligne + pos_temp.y][colonne + (pos_temp.x /*- grid->decalage*/)] = actual_block[ligne][colonne];
+				grid->underMap[ligne + pos_temp.y][colonne + (pos_temp.x - 1 /*- grid->decalage*/)] = actual_block[ligne][colonne];
 }
 
 void Tetromino::Clear_residus(Grid *grid)

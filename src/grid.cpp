@@ -102,7 +102,7 @@ void Grid::Draw(sf::RenderWindow &window)
 		for (int colonne = decalage; colonne < 10+decalage; colonne++)
 		{
       		cell.setFillColor(color[map[ligne][colonne]]);
-			cell.setPosition((colonne-decalage) * SIZECELL, ligne * SIZECELL);
+			cell.setPosition((colonne-1) * SIZECELL, ligne * SIZECELL);
 			window.draw(cell);
 		}
 	}

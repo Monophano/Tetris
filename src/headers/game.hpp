@@ -24,6 +24,7 @@ class Game
         bool stop = false;
         int level = 1;
         Mouse_Position mpos;
+        int score_next_level = score + 200;
 
         // Affichage du jeu
         void Game_Over(sf::RenderWindow &window, bool game_over);
@@ -32,7 +33,6 @@ class Game
         void Pause(sf::RenderWindow &window, bool pause);
 
     private:
-        int score_next_level = score + 200;
         void Draw_Pause_Btn(sf::RenderWindow &window);
         void DrawRetryBtn(sf::RenderWindow &window, bool game_over);
         void Draw_Next_Tetro(sf::RenderWindow &window);
