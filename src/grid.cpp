@@ -1,32 +1,46 @@
 #include "headers/grid.hpp"
 
-Grid::Grid(int _decalage)
+Grid::Grid()
 {
-	decalage = _decalage;
-	if (_decalage == 1)
-	{
-		for (int ligne = 0; ligne < 21; ligne++)
-			for (int colonne = 0; colonne < 12; colonne++)
-				map[ligne][colonne] = nothing;
+	// création des listes
+	map = new block* [21];
+	underMap = new block* [21];
 
-		for (int ligne = 0; ligne < 21; ligne++)
-		{
-			map[ligne][0] = I;
-			map[ligne][11] = I;
-		}
-	}
-	else
+	for (int i = 0; i < 21; i++)
 	{
-		for (int ligne = 0; ligne < 20; ligne++)
-			for (int colonne = 0; colonne < COL; colonne++)
-				map[ligne][colonne] = nothing;
+		map[i] = new block [12];
+		underMap[i] = new block [10];
 	}
+
+	// remplissage
+	for (int ligne = 0; ligne < 21; ligne++)
+	for (int colonne = 0; colonne < 12; colonne++)
+		map[ligne][colonne] = nothing;
+
+	for (int ligne = 0; ligne < 21; ligne++)
+	{
+		map[ligne][0] = I;
+		map[ligne][11] = I;
+	}
+
 	for (int ligne = 0; ligne < ROW; ligne++)
-			for (int colonne = 0; colonne < COL; colonne++)
-				underMap[ligne][colonne] = vide;
+	for (int colonne = 0; colonne < COL; colonne++)
+		underMap[ligne][colonne] = vide;
 
 	for (int colonne = 0; colonne < COL; colonne++) // Initialise Laste Row with a complete line to simplify colision detection on last line
 		underMap[20][colonne] = I;
+}
+
+Grid::~Grid()
+{
+	for (int i = 0; i < 21; i++)
+	{
+		delete map[i];
+		delete underMap[i];
+	}
+
+	delete map;
+	delete underMap;
 }
 
 /* gestion des grilles */
@@ -83,6 +97,7 @@ int Grid::NbLineFull()
 /* Affichage */
 void Grid::Draw(sf::RenderWindow &window)
 {
+	/*
 	sf::RectangleShape cell(sf::Vector2f(SIZECELL,SIZECELL));
 
 	// Grille du dessous
@@ -99,31 +114,39 @@ void Grid::Draw(sf::RenderWindow &window)
 	// Grille du dessus
 	for (int ligne = 0; ligne < ROW; ligne++)
 	{
-		for (int colonne = decalage; colonne < 10+decalage; colonne++)
+		for (int colonne = 1; colonne < 11; colonne++)
 		{
       		cell.setFillColor(color[map[ligne][colonne]]);
 			cell.setPosition((colonne-1) * SIZECELL, ligne * SIZECELL);
 			window.draw(cell);
 		}
 	}
+	*/
+	Draw_Grid(21,10,0,underMap,window);
+	Draw_Grid(21,11,1,map,window);
 }
 
-void Grid::DebugDraw()
+void Grid::DebugDraw(int nblines, int nbcols, block **grille)
 {
-	printf("Map :                 	        UnderMap :\n");
-	for (int ligne = 0; ligne < 21; ligne++)
+	for (int ligne = 0; ligne < nblines; ligne++)
 	{
-		// Map
-		for (int colonne = 0; colonne < 12; colonne ++)
-			printf("%d ", map[ligne][colonne]);
-
-		printf("	");
-
-		// UnderMap
-		for (int colonne = 0; colonne < COL; colonne ++)
-			printf("%d ", underMap[ligne][colonne]);
-
+		for (int colonne = 0; colonne < nbcols; colonne++)
+			printf("%d ", grille[ligne][colonne]);
 		printf("\n");
 	}
-	printf("\n");
+}
+
+void Grid::Draw_Grid(int nblines, int nbcols, int decalage, block **grille, sf::RenderWindow &window)
+{
+	sf::RectangleShape cell(sf::Vector2f(SIZECELL,SIZECELL));
+
+	for (int ligne = 0; ligne < nblines; ligne++)
+	{
+		for (int colonne = decalage; colonne < nbcols; colonne++)
+		{
+			cell.setFillColor(color[grille[ligne][colonne]]);
+			cell.setPosition((colonne - decalage) * SIZECELL, ligne * SIZECELL);
+			window.draw(cell);
+		}
+	}
 }

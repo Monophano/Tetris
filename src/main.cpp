@@ -18,7 +18,7 @@ int main()
 	// Initialisation du jeu
 	Grid *grid = nullptr;
 	Game *game = nullptr;
-	grid = new Grid(1);
+	grid = new Grid();
 	game = new Game();
 	sf::Clock clock;
 	game->Get_Next_Tetro(); // premier tetro du jeu
@@ -134,7 +134,7 @@ int main()
 								{
 									game->Save_High_Score();
 									delete grid;
-									grid = new Grid(1);
+									grid = new Grid();
 									tetromino = Tetromino(game->next_tetro);
 									game->Get_Next_Tetro();
 									game->title_screen = false;
@@ -151,7 +151,7 @@ int main()
 								if ((game->mpos.x >= 350 && game->mpos.x < 550) && (game->mpos.y >= 475 && game->mpos.y <= 550))
 								{
 									delete grid;
-									grid = new Grid(1);
+									grid = new Grid();
 									tetromino = Tetromino(game->next_tetro);
 									game->Get_Next_Tetro();
 									game->title_screen = false;
@@ -220,7 +220,7 @@ int main()
 		if (game_over && game->title_screen)
 		{
 			delete grid;
-			grid = new Grid(1);
+			grid = new Grid();
 			tetromino = Tetromino(game->next_tetro);
 			game->Get_Next_Tetro();
 			game->stop = false;

@@ -7,11 +7,12 @@
 class Grid
 {
 	public:
-		Grid(int _decalage);
-		block underMap[21][10];
-		block map[21][12];
-		block map_sans_bord[21][10];
-		int decalage;
+		Grid();
+		~Grid();
+		//block underMap[21][10];
+		//block map[21][12];
+		block **underMap;
+		block **map;
 
 		// gestion des grilles
 		void destroyLineFull();
@@ -19,9 +20,10 @@ class Grid
 
 		// affichage
 		void Draw(sf::RenderWindow &window);
-		void DebugDraw();
+		void DebugDraw(int nblines, int nbcols, block **grille);
 
 	private:
+		void Draw_Grid(int nblines, int nbcols, int decalage, block **grille, sf::RenderWindow &window);
 		const float SIZECELL = 30.0f;
 		std::vector<sf::Color> color =
 		{
