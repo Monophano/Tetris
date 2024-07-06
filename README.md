@@ -1,4 +1,5 @@
 # Tetris
+![DEMO](readme_assets/partie.gif)
 ## Principe du jeu
 Ce jeu est une copie revisité du classique Tetris sortie en juin 1984 et publié par Elektronika 60.<br>
 Il s'agit d'un jeu de puzzle où le but est de survivre le plus longtemps en s'aidant de pièce tombante qu'il faut arranger au fure et à mesure pour prendre le moins de place possible et faire le plus grand score possible.
