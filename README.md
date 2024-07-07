@@ -27,5 +27,8 @@ Les différentes versions du jeu sont trouvables sur la page release de ce repos
 ## Collaboration
 Toute modification du programme dans le but d'améliorer le fonctionnement du jeu est la bienvenue.
 
+## Bug
+Merci de me prévenir quand vous trouvez un bug en ouvrant une discussion 😁.
+
 ## Dépendances relatives au code
 La version de SFML utilisé dans cet application est la version 2.5.0 et la version de c++ utilisé est la c++ 17.
