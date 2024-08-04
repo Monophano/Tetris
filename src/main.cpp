@@ -15,6 +15,9 @@ int main()
 
 	window.setFramerateLimit(60);
 
+	// génération de la seed aléatoire une seule fois au démarrage
+  	srand(static_cast<unsigned int>(time(nullptr)));
+
 	// Initialisation du jeu
 	Grid *grid = nullptr;
 	Game *game = nullptr;

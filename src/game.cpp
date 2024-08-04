@@ -3,7 +3,6 @@
 // Contrôle du jeu
 void Game::Get_Next_Tetro()
 {
-    srand(time(nullptr));
     next_tetro = (block)((int)(rand()%7));
 }
 
